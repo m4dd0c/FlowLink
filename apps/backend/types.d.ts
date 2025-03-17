@@ -6,3 +6,10 @@ export interface iFlowError {
   message?: string;
   stack?: string | null;
 }
+
+export interface iFlowResponse {
+  res: Response;
+  status?: number;
+  message?: string;
+  data?: any;
+}

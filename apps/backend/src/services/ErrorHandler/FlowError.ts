@@ -19,28 +19,11 @@ class FlowError {
   }
 
   send({ status, message, stack }: Partial<iFlowError> = {}) {
-    if (status) {
-      this.status = status;
-    } else {
-      if (!this.status) this.status = 500;
-    }
+    if (stack && isDev()) console.log(this.stack);
 
-    if (message) {
-      this.message = message;
-    } else {
-      if (!this.message) this.message = "Internal server error";
-    }
-
-    if (stack) {
-      this.stack = stack;
-    } else {
-      if (!this.stack) this.stack = null;
-    }
-
-    if (isDev()) console.log(this.stack);
-    return this.res.status(+this.status).json({
-      success: +this.status < 400,
-      message: this.message,
+    return this.res.status(status || +this.status).json({
+      success: status ? status >= 400 : +this.status >= 400,
+      message: message || this.message,
     });
   }
 }
