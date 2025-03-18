@@ -22,7 +22,7 @@ class FlowError {
     if (stack && isDev()) console.log(this.stack);
 
     return this.res.status(status || +this.status).json({
-      success: status ? status >= 400 : +this.status >= 400,
+      success: status ? status < 400 : +this.status < 400,
       message: message || this.message,
     });
   }
