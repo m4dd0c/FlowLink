@@ -16,11 +16,13 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
   },
   "devDependencies": {
+    "@flowlink/eslint-config": "workspace:*",
+    "@flowlink/typescript-config": "workspace:*",
     "@types/express": "^5.0.0",
-    "@types/node": "^22.13.9",
-    "typescript": "^5.8.2"
+    "@types/node": "^22.13.9"
   }
 }
