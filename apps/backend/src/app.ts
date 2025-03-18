@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import { errorMiddleware } from "./middleware/errorMiddleware";
 import { FRONTEND_URL } from ".";
+import { setupRoutes } from "./route";
 
 dotenv.config({ path: ".env" });
 
