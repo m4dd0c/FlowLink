@@ -35,16 +35,22 @@ importers:
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@22.13.9)(typescript@5.8.2)
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.2
     devDependencies:
+      '@flowlink/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@flowlink/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
       '@types/express':
         specifier: ^5.0.0
         version: 5.0.0
       '@types/node':
         specifier: ^22.13.9
         version: 22.13.9
-      typescript:
-        specifier: ^5.8.2
-        version: 5.8.2
 
   apps/docs:
     dependencies:
