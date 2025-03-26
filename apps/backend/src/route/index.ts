@@ -4,11 +4,12 @@ import FlowResponse from "@flowlink/exres/FlowResponse";
 
 const router = express.Router();
 
+const routes = {
+  user: require("./user"),
+};
+
 export const setupRoutes = () => {
+  app.use("/api");
   // default route
-  app.get("/api", (req, res, next) => {
-    const resp = new FlowResponse({ res });
-    resp.send({ status: 200, message: "Welcome to Flowlink API" });
-  });
   // other imp routes
 };
