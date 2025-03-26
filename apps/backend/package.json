@@ -17,7 +17,8 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "@flowlink/express-response-handler": "workspace:*"
   },
   "devDependencies": {
     "@flowlink/eslint-config": "workspace:*",

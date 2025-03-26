@@ -165,6 +165,25 @@ importers:
         specifier: ^8.26.0
         version: 8.26.0(eslint@9.22.0)(typescript@5.8.2)
 
+  packages/express-response-handler:
+    dependencies:
+      express:
+        specifier: ^4.21.2
+        version: 4.21.2
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.2
+    devDependencies:
+      '@flowlink/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/express':
+        specifier: ^5.0.0
+        version: 5.0.0
+      '@types/node':
+        specifier: ^22.13.9
+        version: 22.13.9
+
   packages/typescript-config: {}
 
   packages/ui:
