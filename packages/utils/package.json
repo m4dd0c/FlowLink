@@ -1,0 +1,9 @@
+{
+  "name": "@flowlink/utils",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "devDependencies": {
+    "@flowlink/typescript-config": "workspace:*"
+  }
+}

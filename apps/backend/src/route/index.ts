@@ -1,11 +1,14 @@
 import express from "express";
 import { app } from "../app";
-import expressHandler from "@flowlink/express-response-handler";
+import FlowResponse from "@flowlink/exres/FlowResponse";
 
 const router = express.Router();
 
 export const setupRoutes = () => {
   // default route
-  app.use("/api", (req, res, next) => {});
+  app.get("/api", (req, res, next) => {
+    const resp = new FlowResponse({ res });
+    resp.send({ status: 200, message: "Welcome to Flowlink API" });
+  });
   // other imp routes
 };

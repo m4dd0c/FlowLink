@@ -1,9 +1,9 @@
 import express, { type Express } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import { errorMiddleware } from "./middleware/errorMiddleware";
 import { FRONTEND_URL } from ".";
 import { setupRoutes } from "./route";
+import error from "@flowlink/exres/error";
 
 dotenv.config({ path: ".env" });
 
@@ -20,4 +20,4 @@ app.use(express.json());
 // Routes
 setupRoutes();
 
-app.use(errorMiddleware);
+app.use(error);

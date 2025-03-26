@@ -1,11 +1,5 @@
 import { Response } from "express";
-
-export interface iFlowResponse {
-  res: Response;
-  status?: number;
-  message?: string;
-  data?: any;
-}
+import { iFlowResponse } from "../types";
 
 class FlowResponse {
   status: number;

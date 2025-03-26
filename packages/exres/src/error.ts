@@ -1,13 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { isDev } from "../utils/isDev";
-import FlowError from "../services/ErrorHandler/FlowError";
+import { isDev } from "@flowlink/utils";
+import FlowError from "./FlowError";
 
-export const errorMiddleware = (
-  err: any,
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+const error = (err: any, _: Request, res: Response, __: NextFunction) => {
   const flowError = new FlowError({ res });
   try {
     if (err.code && err.code.startsWith("P"))
@@ -20,10 +15,10 @@ export const errorMiddleware = (
 
     flowError.send({ status: err.status, stack: err.stack });
   } catch (error) {
-    console.log(error, "so error");
     flowError.send({
       status: 500,
       stack: "Something went bad, Please contact support.",
     });
   }
 };
+export default error;

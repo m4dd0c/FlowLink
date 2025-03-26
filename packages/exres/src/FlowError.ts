@@ -1,6 +1,6 @@
 import { Response } from "express";
-import { isDev } from "../../utils/isDev";
-import { iFlowError } from "../../../types";
+import { isDev } from "@flowlink/utils";
+import { iFlowError } from "../types";
 
 class FlowError {
   status: number;

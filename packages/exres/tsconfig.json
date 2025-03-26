@@ -1,0 +1,5 @@
+{
+  "extends": "@flowlink/typescript-config/node.json",
+  "include": ["src"],
+  "exclude": ["node_modules", "*.d.ts"]
+}
