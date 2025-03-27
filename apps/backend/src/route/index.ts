@@ -1,15 +1,12 @@
-import express from "express";
 import { app } from "../app";
-import FlowResponse from "@flowlink/exres/FlowResponse";
-
-const router = express.Router();
+import user from "./user";
 
 const routes = {
-  user: require("./user"),
+  user
 };
 
 export const setupRoutes = () => {
-  app.use("/api");
-  // default route
-  // other imp routes
-};
+  Object.keys(routes).forEach((key) => {
+    app.use(`/api/${key}`, routes[key])
+  }
+}

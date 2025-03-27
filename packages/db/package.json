@@ -1,0 +1,21 @@
+{
+  "name": "@flowlink/db",
+  "version": "1.0.0",
+  "license": "ISC",
+  "srcipts": {
+    "seed": "prisma db seed"
+  },
+  "prisma": {
+    "seed": "ts-node ./prisma/seed.ts"
+  },
+  "exports": {
+    "./client": "./src/index.ts"
+  },
+  "dependencies": {
+    "@flowlink/typescript-config": "workspace:*",
+    "@prisma/client": "^6.5.0"
+  },
+  "devDependencies": {
+    "prisma": "^6.5.0"
+  }
+}
