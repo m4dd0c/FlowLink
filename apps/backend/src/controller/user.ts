@@ -1,5 +1,80 @@
+import prisma from "@flowlink/db";
 import catchAsync from "@flowlink/exres/catchAsync";
+import bcrypt from "bcryptjs";
+import FlowError from "@flowlink/exres/FlowError";
+import { z } from "zod";
+import FlowResponse from "@flowlink/exres/FlowResponse";
 
-export const signUp = catchAsync(async (req, res) => {});
-export const signIn = catchAsync(async (req, res) => {});
+const signupSchema = z.object({
+  name: z.string().min(3).max(40),
+  email: z.string().regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
+  password: z.string().min(6).max(40),
+});
+
+export const signUp = catchAsync(async (req, res) => {
+  const flowError = new FlowError({ res });
+  const { name, email, password } = req.body;
+  const validation = signupSchema.parse({ name, email, password });
+  console.log(validation, "is validation");
+
+  // checking if user already exists
+  const exists = await prisma.auth.findFirst({ where: { email } });
+  if (exists)
+    return flowError.send({
+      status: 400,
+      message: "Email is already in use. Please try logging in.",
+    });
+
+  // hashing password
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  // create user
+  const user = await prisma.auth.create({
+    data: { name, email, password: hashedPassword },
+  });
+
+  // dto for safe user
+  //
+  // create jwt and put into cookie
+  //
+  // send response
+  new FlowResponse({
+    res,
+    status: 200,
+    message: "User created successfully",
+    data: user,
+  }).send();
+});
+export const signIn = catchAsync(async (req, res) => {
+  const flowError = new FlowError({ res });
+  const { email, password } = req.body;
+  // checking if user exists
+  const user = await prisma.auth.findUnique({ where: { email } });
+  if (!user)
+    return flowError.send({
+      status: 400,
+      message: "Incorrect email or password",
+    });
+  // checking password
+  const isMatch = await bcrypt.compare(password, user.password);
+
+  if (!isMatch)
+    return flowError.send({
+      status: 400,
+      message: "Incorrect email or password",
+    });
+
+  // dto for safe user
+  delete user.password;
+
+  // create jwt and put into cookie
+
+  // send response
+  new FlowResponse({
+    res,
+    status: 200,
+    message: "User logged in successfully",
+    data: user,
+  }).send();
+});
 export const getUser = catchAsync(async (req, res) => {});
