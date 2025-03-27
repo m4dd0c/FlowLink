@@ -2,7 +2,7 @@ import { app } from "../app";
 import user from "./user";
 
 const routes = {
-  user: user,
+  user,
 };
 
 export const setupRoutes = () => {
