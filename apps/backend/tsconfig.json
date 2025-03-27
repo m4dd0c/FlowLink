@@ -4,5 +4,6 @@
     "rootDir": "./src",
     "outDir": "./dist"
   },
+  "typeRoots": ["./types.d.ts", "./node_modules/@types"],
   "exclude": ["node_modules", "*.d.ts", "./dist/**/*"]
 }
