@@ -12,14 +12,18 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@flowlink/db": "workspace:*",
+    "@flowlink/exres": "workspace:*",
+    "@flowlink/utils": "workspace:*",
     "@types/cors": "^2.8.17",
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2",
-    "@flowlink/exres": "workspace:*",
-    "@flowlink/utils": "workspace:*"
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@flowlink/eslint-config": "workspace:*",

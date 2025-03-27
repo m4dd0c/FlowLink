@@ -5,11 +5,14 @@
     "./ErrorHandler": "./src/ErrorHandler.ts",
     "./catchAsync": "./src/catchAsync.ts",
     "./FlowError": "./src/FlowError.ts",
-    "./error": "./src/error.ts"
+    "./error": "./src/error.ts",
+    "./jwt": "./src/jwt.ts"
   },
   "dependencies": {
     "@flowlink/utils": "workspace:*",
-    "express": "^4.21.2"
+    "@types/jsonwebtoken": "^9.0.9",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
     "@flowlink/typescript-config": "workspace:*",

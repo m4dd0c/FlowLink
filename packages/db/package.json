@@ -9,7 +9,7 @@
     "seed": "ts-node ./prisma/seed.ts"
   },
   "exports": {
-    "./client": "./src/index.ts"
+    ".": "./src/index.ts"
   },
   "dependencies": {
     "@flowlink/typescript-config": "workspace:*",
