@@ -1,4 +1,4 @@
-import express, { type Express } from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import { FRONTEND_URL } from ".";
