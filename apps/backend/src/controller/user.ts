@@ -67,6 +67,7 @@ export const signIn = catchAsync(async (req, res) => {
       status: 400,
       message: "Incorrect email or password",
     });
+
   // checking password
   const isMatch = await bcrypt.compare(password, user.password);
 
@@ -94,7 +95,7 @@ export const signIn = catchAsync(async (req, res) => {
 // endpoint /user
 export const getUser = catchAsync(async (req, res) => {
   const flowError = new FlowError({ res });
-  const user = req.user;
+  const user = (req as any).user;
   if (!user)
     return flowError.send({
       status: 400,

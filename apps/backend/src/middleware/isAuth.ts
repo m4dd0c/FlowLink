@@ -19,6 +19,6 @@ export const isAuth = catchAsync(async (req, res, next) => {
   if (!user)
     return flowError.send({ status: 400, message: "You are not authorized" });
 
-  req.user = user;
+  (req as any).user = user;
   next();
 });
