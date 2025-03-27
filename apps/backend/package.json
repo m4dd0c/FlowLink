@@ -28,6 +28,7 @@
   "devDependencies": {
     "@flowlink/eslint-config": "workspace:*",
     "@flowlink/typescript-config": "workspace:*",
+    "@types/cookie-parser": "^1.4.8",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.9",
     "prisma": "^6.5.0"
