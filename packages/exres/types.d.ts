@@ -1,7 +1,6 @@
 import { Response } from "express";
 
 export interface iSaveSession {
-  res: Response;
   id: string;
 }
 
