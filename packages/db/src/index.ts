@@ -1,21 +1,24 @@
 import { PrismaClient } from "@prisma/client";
 
 class PrismaSingleton {
-  private client: PrismaClient;
-  private static _instance: PrismaSingleton;
+  private static _instance: PrismaClient | null = null;
 
-  private constructor() {
-    this.client = new PrismaClient();
+  private constructor() {}
+
+  static get instance(): PrismaClient {
+    if (!this._instance) {
+      this._instance = new PrismaClient();
+    }
+    return this._instance;
   }
 
-  static get instance() {
-    return this._instance || (this._instance = new this());
-  }
-
-  getClient() {
-    return this.client;
+  static async disconnect(): Promise<void> {
+    if (this._instance) {
+      await this._instance.$disconnect();
+      this._instance = null;
+    }
   }
 }
 
-const prisma = PrismaSingleton.instance.getClient();
+const prisma = PrismaSingleton.instance;
 export default prisma;
