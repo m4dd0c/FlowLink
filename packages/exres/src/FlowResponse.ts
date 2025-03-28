@@ -17,6 +17,27 @@ class FlowResponse {
     this.data = data || null;
   }
 
+  // Response sender fn for un-authentication
+  unauthenticate() {
+    // checking if all required data is provided
+    if (!this.res) throw new Error("Response object is required.");
+
+    // generating JWT token for the user and saving to cookies
+    this.res.cookie("token", null, {
+      httpOnly: true,
+      secure: isDev() ? false : true,
+      sameSite: isDev() ? "lax" : "none",
+      expires: new Date(Date.now()),
+    });
+
+    // sending response
+    this.send({
+      status: this.status,
+      message: this.message,
+      data: this.data,
+    });
+  }
+
   // Response sender fn for authentication
   authenticate({ auth }: Partial<iFlowResponse> & { auth: string }) {
     // checking if all required data is provided
