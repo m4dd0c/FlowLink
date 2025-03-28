@@ -18,7 +18,7 @@ model Auth {
 model User {
   id String @id @default(cuid())
 
-  auth   Auth   @relation(fields: [authId], references: [id])
+  auth   Auth   @relation(fields: [authId], references: [id], onDelete: Cascade)
   authId String @unique
 
   zaps Zap[]
@@ -38,7 +38,7 @@ model Zap {
 
   zapRuns ZapRun[]
 
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 
   createdAt DateTime @default(now())
@@ -48,7 +48,7 @@ model Zap {
 model ZapRun {
   id String @id @default(cuid())
   zapId String @unique
-  zap   Zap    @relation(fields: [zapId], references: [id])
+  zap   Zap    @relation(fields: [zapId], references: [id], onDelete: Cascade)
 }
 
 model AvailableTriggers {
@@ -64,7 +64,7 @@ model Trigger {
   type      AvailableTriggers @relation(fields: [triggerId], references: [id])
 
   zapId String @unique
-  zap   Zap    @relation(fields: [zapId], references: [id])
+  zap   Zap    @relation(fields: [zapId], references: [id], onDelete: Cascade)
 }
 
 model AvailableActions {
@@ -80,5 +80,5 @@ model Action {
   actionId String
 
   zapId String
-  zap   Zap    @relation(fields: [zapId], references: [id])
+  zap   Zap    @relation(fields: [zapId], references: [id], onDelete: Cascade)
 }
