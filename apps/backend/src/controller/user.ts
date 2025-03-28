@@ -2,20 +2,9 @@ import prisma from "@flowlink/db";
 import catchAsync from "@flowlink/exres/catchAsync";
 import bcrypt from "bcryptjs";
 import FlowError from "@flowlink/exres/FlowError";
-import { z } from "zod";
 import FlowResponse from "@flowlink/exres/FlowResponse";
 import { userDTO } from "@flowlink/utils";
-
-const SignUpSchema = z.object({
-  name: z.string().min(3).max(40),
-  email: z.string().regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
-  password: z.string().min(6).max(40),
-});
-
-const SignInSchema = z.object({
-  email: z.string().regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
-  password: z.string().min(6).max(40),
-});
+import { SignInSchema, SignUpSchema } from "../lib/zodSchemas/user";
 
 // endpoint /sign-up
 export const signUp = catchAsync(async (req, res) => {
@@ -40,13 +29,21 @@ export const signUp = catchAsync(async (req, res) => {
   // hashing password
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  // create user
-  const user = await prisma.auth.create({
-    data: { name, email, password: hashedPassword },
+  // transaction to create auth and user
+  const tx = await prisma.$transaction(async (tx) => {
+    const auth = await tx.auth.create({
+      data: { name, email, password: hashedPassword },
+    });
+    await tx.user.create({
+      data: {
+        authId: auth.id,
+      },
+    });
+    return auth;
   });
 
   // dto for safe user
-  const safeUser = userDTO(user);
+  const safeUser = userDTO(tx);
 
   // send response
   return new FlowResponse({
@@ -108,6 +105,8 @@ export const getUser = catchAsync(async (req, res) => {
       message: "Unauthorized access.",
     });
   }
+
+  // NOTE: May want to send user instead of auth. Since user contain zaps
 
   // dto for safe user
   const safeUser = userDTO(user);
