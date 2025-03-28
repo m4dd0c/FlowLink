@@ -2,7 +2,12 @@ import { NextFunction, Request, Response } from "express";
 import { isDev } from "@flowlink/utils";
 import FlowError from "./FlowError";
 
-const error = (err: any, _: Request, res: Response, __: NextFunction) => {
+const error = async (
+  err: any,
+  _req: Request,
+  res: Response,
+  _next: NextFunction,
+) => {
   const flowError = new FlowError({ res });
   try {
     if (err.code && err.code.startsWith("P"))
