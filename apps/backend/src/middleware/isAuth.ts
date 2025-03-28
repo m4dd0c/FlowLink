@@ -8,16 +8,26 @@ export const isAuth = catchAsync(async (req, res, next) => {
 
   const { token } = req.cookies;
 
-  if (!token)
-    return flowError.send({ status: 400, message: "You are not authorized" });
+  if (!token) {
+    return flowError.send({
+      status: 401,
+      message: "You are unauthorized",
+    });
+  }
 
   const userId = verifySession(token);
   if (!userId)
-    return flowError.send({ status: 400, message: "You are not authorized" });
+    return flowError.send({
+      status: 401,
+      message: "You are unauthorized",
+    });
 
   const user = await prisma.user.findUnique({ where: { id: userId } });
   if (!user)
-    return flowError.send({ status: 400, message: "You are not authorized" });
+    return flowError.send({
+      status: 401,
+      message: "You are unauthorized",
+    });
 
   (req as any).user = user;
   next();
