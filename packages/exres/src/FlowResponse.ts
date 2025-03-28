@@ -34,7 +34,7 @@ class FlowResponse {
 
     // sending response
     this.send({
-      status: this.status || 200,
+      status: this.status,
       message: this.message,
       data: this.data,
     });
@@ -43,10 +43,10 @@ class FlowResponse {
   // General purpose Response sender fn
   send({ status, message, data }: Partial<iFlowResponse> = {}) {
     // Sending repsonse
-    return this.res.status(status || this.status || 200).json({
+    return this.res.status(status || this.status).json({
       success: status ? status < 400 : +this.status < 400,
-      message: message || this.message || "Success",
-      data: data || this.data || null,
+      message: message || this.message,
+      data: data || this.data,
     });
   }
 }
