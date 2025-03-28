@@ -47,6 +47,7 @@ model Zap {
 
 model ZapRun {
   id String @id @default(cuid())
+  metadata     Json
   zapId String @unique
   zap   Zap    @relation(fields: [zapId], references: [id], onDelete: Cascade)
 }
