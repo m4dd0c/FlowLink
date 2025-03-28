@@ -119,3 +119,12 @@ export const getUser = catchAsync(async (req, res) => {
     data: safeUser,
   }).send();
 });
+
+// endpoint /sign-out
+export const signOut = catchAsync(async (_req, res) => {
+  return new FlowResponse({
+    res,
+    status: 200,
+    message: "User logged-out successfully",
+  }).unauthenticate();
+});
