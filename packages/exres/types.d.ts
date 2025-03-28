@@ -1,9 +1,5 @@
 import { Response } from "express";
 
-export interface iSaveSession {
-  id: string;
-}
-
 export interface iFlowError {
   res: Response;
   status?: number;
