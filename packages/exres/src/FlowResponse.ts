@@ -16,34 +16,38 @@ class FlowResponse {
     this.message = message || "Done";
     this.data = data || null;
   }
-  send({
-    status,
-    message,
-    data,
-    auth,
-  }: Partial<iFlowResponse> & { auth?: string } = {}) {
-    if (auth) {
-      const token = saveSession(auth);
-      return this.res
-        .cookie("token", token, {
-          httpOnly: true,
-          secure: isDev() ? false : true,
-          sameSite: isDev() ? "lax" : "none",
-          expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-        })
-        .status(status || this.status)
-        .json({
-          success: status ? status < 400 : +this.status < 400,
-          message: message || this.message,
-          data: data || this.data,
-        });
-    } else {
-      return this.res.status(status || this.status).json({
-        success: status ? status < 400 : +this.status < 400,
-        message: message || this.message,
-        data: data || this.data,
-      });
-    }
+
+  // Response sender fn for authentication
+  authenticate({ auth }: Partial<iFlowResponse> & { auth: string }) {
+    // checking if all required data is provided
+    if (!auth) throw new Error("Auth data is required for authentication.");
+    if (!this.res) throw new Error("Response object is required.");
+
+    // generating JWT token for the user and saving to cookies
+    const token = saveSession(auth);
+    this.res.cookie("token", token, {
+      httpOnly: true,
+      secure: isDev() ? false : true,
+      sameSite: isDev() ? "lax" : "none",
+      expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+    });
+
+    // sending response
+    this.send({
+      status: this.status || 200,
+      message: this.message,
+      data: this.data,
+    });
+  }
+
+  // General purpose Response sender fn
+  send({ status, message, data }: Partial<iFlowResponse> = {}) {
+    // Sending repsonse
+    return this.res.status(status || this.status || 200).json({
+      success: status ? status < 400 : +this.status < 400,
+      message: message || this.message || "Success",
+      data: data || this.data || null,
+    });
   }
 }
 export default FlowResponse;

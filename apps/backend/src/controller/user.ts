@@ -49,9 +49,9 @@ export const signUp = catchAsync(async (req, res) => {
   return new FlowResponse({
     res,
     status: 201,
-    message: "User created successfully",
+    message: "User signed-up successfully",
     data: safeUser,
-  }).send({ auth: safeUser.id });
+  }).authenticate({ auth: safeUser.id });
 });
 
 // endpoint /sign-in
@@ -89,9 +89,9 @@ export const signIn = catchAsync(async (req, res) => {
   return new FlowResponse({
     res,
     status: 200,
-    message: "User logged in successfully",
+    message: "User logged-in successfully",
     data: safeUser,
-  }).send({ auth: safeUser.id });
+  }).authenticate({ auth: safeUser.id });
 });
 
 // endpoint /user
