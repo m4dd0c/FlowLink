@@ -26,9 +26,6 @@ importers:
       '@flowlink/exres':
         specifier: workspace:*
         version: link:../../packages/exres
-      '@flowlink/redis':
-        specifier: workspace:*
-        version: link:../../packages/redis
       '@flowlink/utils':
         specifier: workspace:*
         version: link:../../packages/utils
