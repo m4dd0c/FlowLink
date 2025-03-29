@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@flowlink/utils": "workspace:*",
+    "@flowlink/redis": "workspace:*",
     "@types/jsonwebtoken": "^9.0.9",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
