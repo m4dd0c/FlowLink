@@ -4,5 +4,5 @@ const PORT = process.env.PORT || 4000;
 export const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 
 app.listen(PORT, () => {
-  console.log("Server is up & running...");
+  console.log("Primary Server is up & running...");
 });
