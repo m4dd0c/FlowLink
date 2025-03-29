@@ -50,6 +50,15 @@ model ZapRun {
   metadata     Json
   zapId String @unique
   zap   Zap    @relation(fields: [zapId], references: [id], onDelete: Cascade)
+
+  zapRunOutbox ZapRunOutbox?
+}
+
+model ZapRunOutbox {
+  id String @id @default(cuid())
+
+  zapRunId String @unique
+  zapRun   ZapRun    @relation(fields: [zapRunId], references: [id], onDelete: Cascade)
 }
 
 model AvailableTriggers {
