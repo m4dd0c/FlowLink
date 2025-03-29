@@ -1,7 +1,14 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
-  "globalEnv": ["JWT_SECRET", "DATABASE_URL", "CACHE_EXPIRE"],
+  "globalEnv": [
+    "JWT_SECRET",
+    "FRONTEND_URL",
+    "DATABASE_URL",
+    "CACHE_EXPIRE",
+    "MAIN_SERVER_PORT",
+    "WEBHOOKS_SERVER_PORT"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
