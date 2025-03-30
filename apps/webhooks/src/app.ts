@@ -1,44 +1,33 @@
-import prisma from "@flowlink/db";
-import catchAsync from "@flowlink/exres/catchAsync";
-import FlowError from "@flowlink/exres/FlowError";
-import FlowResponse from "@flowlink/exres/FlowResponse";
+import error from "@flowlink/exres/error";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 import express, { Express } from "express";
+import zapRoute from "./routes";
+import dotenv from "dotenv";
+import FlowResponse from "@flowlink/exres/FlowResponse";
+import path from "path";
+
+dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
 
 export const app: Express = express();
 
-const isAuth = catchAsync(async (req, res, next) => {
-  next();
-});
+console.log("webhook cwd", process.cwd(), "seckk,", process.env.JWT_SECRET);
 
-const zapController = catchAsync(async (req, res, next) => {
-  const { userId, zapId } = req.params;
-  if (!userId || !zapId)
-    return next(
-      new FlowError({ res, status: 422, message: "Invalid request" }).send(),
-    );
+const corsOptions = {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+};
+app.use(cors(corsOptions));
+app.use(cookieParser());
+app.use(express.json());
 
-  const metadata = req.body;
-
-  console.log(`User ${userId} has Zap ${zapId}`);
-
-  await prisma.$transaction(async (tx) => {
-    const run = await tx.zapRun.create({
-      data: {
-        zapId: zapId,
-        metadata,
-      },
-    });
-    await tx.zapRunOutbox.create({
-      data: {
-        zapRunId: run.id,
-      },
-    });
-  });
-  return new FlowResponse({
+app.use("/hooks", zapRoute);
+app.get("/", (_req, res) => {
+  new FlowResponse({
     res,
     status: 200,
-    message: "Webhook received",
+    message: "Welcome to Flowlink Webhooks",
   }).send();
 });
-
-app.post("/hooks/catch/:userId/:zapId", isAuth, zapController);
+app.use(error);
