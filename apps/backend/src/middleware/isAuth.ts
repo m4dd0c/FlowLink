@@ -15,7 +15,7 @@ export const isAuth = catchAsync(async (req, res, next) => {
     });
   }
 
-  const userId = await verifySession(token);
+  const userId = verifySession(token);
   if (!userId)
     return flowError.send({
       status: 401,
