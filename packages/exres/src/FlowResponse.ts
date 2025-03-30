@@ -2,7 +2,7 @@ import { Response } from "express";
 import { iFlowResponse } from "../types";
 import { isDev } from "@flowlink/utils";
 import { saveSession } from "./jwt";
-import redis from "@flowlink/redis";
+// import redis from "@flowlink/redis";
 
 class FlowResponse {
   status: number;
@@ -19,7 +19,7 @@ class FlowResponse {
   }
 
   // Response sender fn for un-authentication
-  async unauthenticate(id: string) {
+  unauthenticate() {
     // checking if all required data is provided
     if (!this.res) throw new Error("Response object is required.");
 
@@ -31,7 +31,7 @@ class FlowResponse {
       expires: new Date(Date.now()),
     });
 
-    if (id) await redis.del(`session:${id}`);
+    // if (id) await redis.del(`session:${id}`);
     // sending response
     this.send({
       status: this.status,
@@ -41,13 +41,13 @@ class FlowResponse {
   }
 
   // Response sender fn for authentication
-  async authenticate({ auth }: Partial<iFlowResponse> & { auth: string }) {
+  authenticate({ auth }: Partial<iFlowResponse> & { auth: string }) {
     // checking if all required data is provided
     if (!auth) throw new Error("Auth data is required for authentication.");
     if (!this.res) throw new Error("Response object is required.");
 
     // generating JWT token for the user and saving to cookies
-    const token = await saveSession(auth);
+    const token = saveSession(auth);
     this.res.cookie("token", token, {
       httpOnly: true,
       secure: isDev() ? false : true,
