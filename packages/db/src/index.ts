@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
+console.log("prisma cwd", process.cwd(), "seckk,", process.env.DATABASE_URL);
+
 class PrismaSingleton {
   private static _instance: PrismaClient | null = null;
 
