@@ -46,7 +46,7 @@ export const signUp = catchAsync(async (req, res) => {
   const safeUser = userDTO(tx);
 
   // send response
-  return await new FlowResponse({
+  return new FlowResponse({
     res,
     status: 201,
     message: "User signed-up successfully",
@@ -86,7 +86,7 @@ export const signIn = catchAsync(async (req, res) => {
   const safeUser = userDTO(user);
 
   // send response
-  return await new FlowResponse({
+  return new FlowResponse({
     res,
     status: 200,
     message: "User logged-in successfully",
@@ -121,11 +121,11 @@ export const getUser = catchAsync(async (req, res) => {
 });
 
 // endpoint /sign-out
-export const signOut = catchAsync(async (req, res) => {
-  const user = (req as any).user;
-  return await new FlowResponse({
+export const signOut = catchAsync(async (_req, res) => {
+  // const user = (req as any).user;
+  return new FlowResponse({
     res,
     status: 200,
     message: "User logged-out successfully",
-  }).unauthenticate(user.id);
+  }).unauthenticate();
 });
