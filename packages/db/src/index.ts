@@ -1,6 +1,9 @@
 import { PrismaClient } from "@prisma/client";
+import dotenv from "dotenv";
+import path from "path";
 
-console.log("prisma cwd", process.cwd(), "seckk,", process.env.DATABASE_URL);
+// Setting .env.backend file as centralized .env file for all backend apps.
+dotenv.config({ path: path.resolve(__dirname, "../../../.env.backend") });
 
 class PrismaSingleton {
   private static _instance: PrismaClient | null = null;
