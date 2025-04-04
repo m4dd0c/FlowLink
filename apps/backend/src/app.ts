@@ -6,11 +6,12 @@ import cookieParser from "cookie-parser";
 import { setupRoutes } from "./route";
 import error from "@flowlink/exres/error";
 import path from "path";
+import FlowResponse from "@flowlink/exres/FlowResponse";
 
-dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
+// Setting .env.backend file as centralized .env file for all backend apps.
+dotenv.config({ path: path.resolve(__dirname, "../../../.env.backend") });
 
 export const app: Express = express();
-console.log("prime cwd", process.cwd(), "seckk,", process.env.JWT_SECRET);
 
 const corsOptions = {
   origin: FRONTEND_URL,
@@ -24,5 +25,14 @@ app.use(express.json());
 
 // Routes
 setupRoutes();
+
+// Default route.
+app.get("/", (_req, res) => {
+  new FlowResponse({
+    res,
+    status: 200,
+    message: "Welcome to Flowlink Primary Backend",
+  }).send();
+});
 
 app.use(error);
