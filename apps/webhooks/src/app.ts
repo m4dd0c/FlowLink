@@ -7,22 +7,24 @@ import dotenv from "dotenv";
 import FlowResponse from "@flowlink/exres/FlowResponse";
 import path from "path";
 
-dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
+// Setting .env.backend file as centralized .env file for all backend apps.
+dotenv.config({ path: path.resolve(__dirname, "../../../.env.backend") });
 
 export const app: Express = express();
-
-console.log("webhook cwd", process.cwd(), "seckk,", process.env.JWT_SECRET);
 
 const corsOptions = {
   origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 };
+
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
 
 app.use("/hooks", zapRoute);
+
+// Default route.
 app.get("/", (_req, res) => {
   new FlowResponse({
     res,
@@ -30,4 +32,5 @@ app.get("/", (_req, res) => {
     message: "Welcome to Flowlink Webhooks",
   }).send();
 });
+
 app.use(error);
