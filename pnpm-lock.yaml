@@ -88,6 +88,15 @@ importers:
       '@flowlink/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
+      '@types/node':
+        specifier: ^22.13.9
+        version: 22.13.9
+      ts-node:
+        specifier: ^10.9.2
+        version: 10.9.2(@types/node@22.13.9)(typescript@5.8.3)
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
 
   apps/web:
     dependencies:
@@ -192,10 +201,22 @@ importers:
       '@flowlink/kafka':
         specifier: workspace:*
         version: link:../../packages/kafka
+      '@flowlink/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
     devDependencies:
       '@flowlink/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
+      '@types/node':
+        specifier: ^22.13.9
+        version: 22.13.9
+      ts-node:
+        specifier: ^10.9.2
+        version: 10.9.2(@types/node@22.13.9)(typescript@5.8.3)
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
 
   packages/db:
     dependencies:
@@ -204,14 +225,14 @@ importers:
         version: link:../typescript-config
       '@prisma/client':
         specifier: ^6.5.0
-        version: 6.5.0(prisma@6.5.0(typescript@5.8.2))(typescript@5.8.2)
+        version: 6.5.0(prisma@6.5.0(typescript@5.8.3))(typescript@5.8.3)
       dotenv:
         specifier: ^16.4.7
         version: 16.4.7
     devDependencies:
       prisma:
         specifier: ^6.5.0
-        version: 6.5.0(typescript@5.8.2)
+        version: 6.5.0(typescript@5.8.3)
 
   packages/eslint-config:
     devDependencies:
@@ -336,9 +357,15 @@ importers:
 
   packages/utils:
     dependencies:
+      dotenv:
+        specifier: ^16.4.7
+        version: 16.4.7
       node:
         specifier: ^20.19.0
         version: 20.19.0
+      nodemailer:
+        specifier: ^6.10.0
+        version: 6.10.0
     devDependencies:
       '@flowlink/typescript-config':
         specifier: workspace:*
@@ -346,6 +373,9 @@ importers:
       '@types/node':
         specifier: ^22.13.9
         version: 22.13.9
+      '@types/nodemailer':
+        specifier: ^6.4.17
+        version: 6.4.17
 
 packages:
 
@@ -858,6 +888,9 @@ packages:
 
   '@types/node@22.13.9':
     resolution: {integrity: sha512-acBjXdRJ3A6Pb3tqnw9HZmyR3Fiol3aGxRCK1x3d+6CDAMjl7I649wpSd+yNURCjbOUGu9tqtLKnTGxmK6CyGw==}
+
+  '@types/nodemailer@6.4.17':
+    resolution: {integrity: sha512-I9CCaIp6DTldEg7vyUTZi8+9Vo0hi1/T8gv3C89yk1rSAAzoKQ8H8ki/jBYJSFoH/BisgLP8tkZMlQ91CIquww==}
 
   '@types/qs@6.9.18':
     resolution: {integrity: sha512-kK7dgTYDyGqS+e2Q4aK9X3D7q234CIZ1Bv0q/7Z5IwRDoADNU81xXJK/YVyLbLTZCoIwUoDoffFeF+p/eIklAA==}
@@ -2102,6 +2135,10 @@ packages:
     engines: {npm: '>=5.0.0'}
     hasBin: true
 
+  nodemailer@6.10.0:
+    resolution: {integrity: sha512-SQ3wZCExjeSatLE/HBaXS5vqUOQk6GtBdIIKxiFdmm01mOQZX/POJkO3SUX1wDiYcwUOJwT23scFSC9fY2H8IA==}
+    engines: {node: '>=6.0.0'}
+
   npm-run-path@4.0.1:
     resolution: {integrity: sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==}
     engines: {node: '>=8'}
@@ -2702,6 +2739,11 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  typescript@5.8.3:
+    resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   uglify-js@3.19.3:
     resolution: {integrity: sha512-v3Xu+yuwBXisp6QYTcH4UbH+xYJXqnq2m/LtQVWKWzYc1iehYnLixoQDN9FH6/j9/oybfd6W9Ghwkl8+UMKTKQ==}
     engines: {node: '>=0.8.0'}
@@ -3075,10 +3117,10 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
 
-  '@prisma/client@6.5.0(prisma@6.5.0(typescript@5.8.2))(typescript@5.8.2)':
+  '@prisma/client@6.5.0(prisma@6.5.0(typescript@5.8.3))(typescript@5.8.3)':
     optionalDependencies:
-      prisma: 6.5.0(typescript@5.8.2)
-      typescript: 5.8.2
+      prisma: 6.5.0(typescript@5.8.3)
+      typescript: 5.8.3
 
   '@prisma/config@6.5.0':
     dependencies:
@@ -3219,6 +3261,10 @@ snapshots:
   '@types/node@22.13.9':
     dependencies:
       undici-types: 6.20.0
+
+  '@types/nodemailer@6.4.17':
+    dependencies:
+      '@types/node': 22.13.9
 
   '@types/qs@6.9.18': {}
 
@@ -4754,6 +4800,8 @@ snapshots:
     dependencies:
       node-bin-setup: 1.1.3
 
+  nodemailer@6.10.0: {}
+
   npm-run-path@4.0.1:
     dependencies:
       path-key: 3.1.1
@@ -4931,6 +4979,16 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
       typescript: 5.8.2
+    transitivePeerDependencies:
+      - supports-color
+
+  prisma@6.5.0(typescript@5.8.3):
+    dependencies:
+      '@prisma/config': 6.5.0
+      '@prisma/engines': 6.5.0
+    optionalDependencies:
+      fsevents: 2.3.3
+      typescript: 5.8.3
     transitivePeerDependencies:
       - supports-color
 
@@ -5393,6 +5451,24 @@ snapshots:
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
 
+  ts-node@10.9.2(@types/node@22.13.9)(typescript@5.8.3):
+    dependencies:
+      '@cspotcode/source-map-support': 0.8.1
+      '@tsconfig/node10': 1.0.11
+      '@tsconfig/node12': 1.0.11
+      '@tsconfig/node14': 1.0.3
+      '@tsconfig/node16': 1.0.4
+      '@types/node': 22.13.9
+      acorn: 8.14.1
+      acorn-walk: 8.3.4
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      typescript: 5.8.3
+      v8-compile-cache-lib: 3.0.1
+      yn: 3.1.1
+
   tslib@1.14.1: {}
 
   tslib@2.8.1: {}
@@ -5479,6 +5555,8 @@ snapshots:
       - supports-color
 
   typescript@5.8.2: {}
+
+  typescript@5.8.3: {}
 
   uglify-js@3.19.3:
     optional: true
