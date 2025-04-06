@@ -8,7 +8,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "A worker, for Flowlink, will be used to send solana and mails to appropriate destination.",
+  "description": "A worker, for Flowlink, will be responsible to deliver solana and mails at appropriate destination.",
   "dependencies": {
     "@flowlink/kafka": "workspace:*",
     "@flowlink/db": "workspace:*"
