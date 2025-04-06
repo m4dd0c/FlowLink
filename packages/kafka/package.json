@@ -1,0 +1,16 @@
+{
+  "name": "kafka",
+  "version": "1.0.0",
+  "keywords": [],
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@flowlink/typescript-config": "workspace:*",
+    "dotenv": "^16.4.7",
+    "kafkajs": "^2.2.4"
+  }
+}
