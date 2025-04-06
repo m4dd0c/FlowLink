@@ -1,6 +1,5 @@
 import kafka, { KAFKA_TOPIC_NAME } from "@flowlink/kafka";
 import prisma from "@flowlink/db";
-// import dotenv from 'dotenv';
 
 async function main() {
   const consumer = kafka.consumer({ groupId: "flowlink-worker" });
@@ -25,20 +24,45 @@ async function main() {
         }
         const zap = await prisma.zapRun.findUnique({
           where: { id: message?.value?.toString() },
-          include: {},
+          include: {
+            zap: {
+              include: {
+                actions: {
+                  include: { type: true },
+                },
+              },
+            },
+          },
         });
 
         if (!zap) {
           console.error("Zap not found");
           return;
         }
+        console.log("zap", zap);
         // Step 2: Get Metadata (JSON) extract meaningful information. e.g., user_email, sol_amount
         const metadata = zap.metadata;
         console.log(metadata, "is metadata");
         // Step 3: Get All available actions. e.g., [send_mail, send_sol, send_mail]
+        const actions = zap.zap.actions.map((record) => record.type.name);
         // Step 4A: Proceed them one by one by their respective order.
-        // Step 4B: Send Email
-        // Step 4C: Send Solana using tiplink or smth similar
+
+        console.log("actions are", actions);
+        actions.forEach(async (action) => {
+          console.log("action is", action);
+          switch (action) {
+            case "send_mail":
+              // Step 4A: Send Email
+              console.log("Sending email");
+              break;
+            case "send_sol":
+              // Step 4A: Send Solana using tiplink or smth similar
+              console.log("Sending solana");
+              break;
+            default:
+              console.error("Unknown action type:", action);
+          }
+        });
         // Step 5: Commit the kafka message to delete it from the queue
         await consumer.commitOffsets([
           {
