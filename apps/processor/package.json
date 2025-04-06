@@ -8,5 +8,11 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "A Processor, for Flowlink, is in-charge of transactional outbox pattern as well as kafka producers.",
+  "dependencies": {
+    "@flowlink/db": "workspace:*"
+  },
+  "devDependencies": {
+    "@flowlink/typescript-config": "workspace:*"
+  }
 }

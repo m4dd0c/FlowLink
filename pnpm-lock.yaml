@@ -76,6 +76,16 @@ importers:
         specifier: ^6.5.0
         version: 6.5.0(typescript@5.8.2)
 
+  apps/processor:
+    dependencies:
+      '@flowlink/db':
+        specifier: workspace:*
+        version: link:../../packages/db
+    devDependencies:
+      '@flowlink/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+
   apps/web:
     dependencies:
       '@flowlink/ui':
@@ -171,6 +181,16 @@ importers:
         specifier: ^6.5.0
         version: 6.5.0(typescript@5.8.2)
 
+  apps/worker:
+    dependencies:
+      '@flowlink/db':
+        specifier: workspace:*
+        version: link:../../packages/db
+    devDependencies:
+      '@flowlink/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+
   packages/db:
     dependencies:
       '@flowlink/typescript-config':
@@ -253,6 +273,18 @@ importers:
       '@types/node':
         specifier: ^22.13.9
         version: 22.13.9
+
+  packages/kafka:
+    dependencies:
+      '@flowlink/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      dotenv:
+        specifier: ^16.4.7
+        version: 16.4.7
+      kafkajs:
+        specifier: ^2.2.4
+        version: 2.2.4
 
   packages/redis:
     dependencies:
@@ -1869,6 +1901,10 @@ packages:
 
   jws@3.2.2:
     resolution: {integrity: sha512-YHlZCB6lMTllWDtSPHz/ZXTsi8S00usEV6v1tjq8tOUZzw7DpSDWVXjXDre6ed1w/pd495ODpHZYSdkRTsa0HA==}
+
+  kafkajs@2.2.4:
+    resolution: {integrity: sha512-j/YeapB1vfPT2iOIUn/vxdyKEuhuY2PxMBvf5JWux6iSaukAccrMtXEY/Lb7OvavDhOWME589bpLrEdnVHjfjA==}
+    engines: {node: '>=14.0.0'}
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
@@ -4543,6 +4579,8 @@ snapshots:
     dependencies:
       jwa: 1.4.1
       safe-buffer: 5.2.1
+
+  kafkajs@2.2.4: {}
 
   keyv@4.5.4:
     dependencies:

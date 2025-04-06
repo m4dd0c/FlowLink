@@ -8,5 +8,11 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "A worker, for Flowlink, will be used to send solana and mails to appropriate destination.",
+  "dependencies": {
+    "@flowlink/db": "workspace:*"
+  },
+  "devDependencies": {
+    "@flowlink/typescript-config": "workspace:*"
+  }
 }
