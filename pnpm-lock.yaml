@@ -81,6 +81,9 @@ importers:
       '@flowlink/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@flowlink/kafka':
+        specifier: workspace:*
+        version: link:../../packages/kafka
     devDependencies:
       '@flowlink/typescript-config':
         specifier: workspace:*
@@ -186,6 +189,9 @@ importers:
       '@flowlink/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@flowlink/kafka':
+        specifier: workspace:*
+        version: link:../../packages/kafka
     devDependencies:
       '@flowlink/typescript-config':
         specifier: workspace:*
