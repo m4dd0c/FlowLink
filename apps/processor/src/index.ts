@@ -8,30 +8,32 @@ async function main() {
 
   try {
     // Infinite loop to keep the process alive
-    while (1) {
-      // Step 1: Pull from outbox table
-      const zapRecords = await prisma.zapRunOutbox.findMany({
-        where: {},
-        take: 10,
-      });
+    // while (1) {
+    // Step 1: Pull from outbox table
+    const zapRecords = await prisma.zapRunOutbox.findMany({
+      where: {},
+      take: 10,
+    });
 
-      // Step 2: Produce to kafka queue
-      await producer.send({
-        topic: KAFKA_TOPIC_NAME,
-        messages: zapRecords.map((record) => ({
-          value: record.zapRunId,
-        })),
-      });
+    console.log(zapRecords, "zapRecords");
+    // Step 2: Produce to kafka queue
+    await producer.send({
+      topic: KAFKA_TOPIC_NAME,
+      messages: zapRecords.map((record: any) => ({
+        value: record.zapRunId,
+        stage: 0,
+      })),
+    });
 
-      // Step 3: Delete from outbox table
-      await prisma.zapRunOutbox.deleteMany({
-        where: {
-          id: {
-            in: zapRecords.map((record) => record.id),
-          },
-        },
-      });
-    }
+    // Step 3: Delete from outbox table
+    // await prisma.zapRunOutbox.deleteMany({
+    //   where: {
+    //     id: {
+    //       in: zapRecords.map((record) => record.id),
+    //     },
+    //   },
+    // });
+    // }
   } catch (error) {
     console.error("Error in producer loop:", error);
   }
