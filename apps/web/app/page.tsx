@@ -1,4 +1,4 @@
-import Image, { type ImageProps } from "next/image";
+import Image, { /* type */ ImageProps } from "next/image";
 import { Button } from "@flowlink/ui/button";
 import styles from "./page.module.css";
 
