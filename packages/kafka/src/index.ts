@@ -26,4 +26,6 @@ class KafkaSingleton {
 }
 
 const instance = KafkaSingleton.instance;
+
+export const KAFKA_TOPIC_NAME = "topic-flowlink";
 export default instance;
