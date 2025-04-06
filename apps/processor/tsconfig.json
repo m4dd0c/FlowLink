@@ -1,0 +1,9 @@
+{
+  "extends": "@flowlink/typescript-config/node.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist"
+  },
+  "typeRoots": ["./types.d.ts", "./node_modules/@types"],
+  "exclude": ["node_modules", "*.d.ts", "./dist/**/*"]
+}
