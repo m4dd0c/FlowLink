@@ -47,7 +47,7 @@ model Zap {
 
 model ZapRun {
   id String @id @default(cuid())
-  metadata     Json
+  metadata     Json @default("{}")
   zapId String @unique
   zap   Zap    @relation(fields: [zapId], references: [id], onDelete: Cascade)
 
@@ -88,6 +88,8 @@ model Action {
 
   type     AvailableActions @relation(fields: [actionId], references: [id])
   actionId String
+
+  sortingOrder Int @default(0)
 
   zapId String
   zap   Zap    @relation(fields: [zapId], references: [id], onDelete: Cascade)
