@@ -4,6 +4,10 @@ import path from "path";
 
 // Setting .env.backend file as centralized .env file for all backend apps.
 dotenv.config({ path: path.resolve(__dirname, "../../../.env.backend") });
+console.log(
+  "Prisma Client initialized with centralized .env file",
+  process.env.DATABASE_URL,
+);
 
 class PrismaSingleton {
   private static _instance: PrismaClient | null = null;
