@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "A Processor, for Flowlink, is in-charge of transactional outbox pattern as well as kafka producers.",
   "dependencies": {
+    "@flowlink/kafka": "workspace:*",
     "@flowlink/db": "workspace:*"
   },
   "devDependencies": {
