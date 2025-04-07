@@ -1,9 +1,12 @@
-import kafka, { KAFKA_TOPIC_NAME } from "@flowlink/kafka";
+import kafka, { KAFKA_TOPIC_NAME, Partitioners } from "@flowlink/kafka";
 import prisma from "@flowlink/db";
 
 async function main() {
   // Creating a Kafka producer and connecting to the Kafka broker
-  const producer = kafka.producer();
+  const producer = kafka.producer({
+    createPartitioner: Partitioners.LegacyPartitioner,
+  });
+
   await producer.connect();
 
   try {
