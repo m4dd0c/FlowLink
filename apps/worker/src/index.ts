@@ -17,52 +17,54 @@ async function main() {
           offset: message.offset,
           value: message?.value?.toString() /* zapRunId */,
         });
+
+        await new Promise((r) => setTimeout(r, 500));
         // Step 1: Get zapRunId and find associated ZapRun
-        if (message.value === null) {
-          console.warn("Message value is null");
-          return;
-        }
-        const zap = await prisma.zapRun.findUnique({
-          where: { id: message?.value?.toString() },
-          include: {
-            zap: {
-              include: {
-                actions: {
-                  include: { type: true },
+        if (message.value !== null) {
+          const zap = await prisma.zapRun.findUnique({
+            where: { id: message?.value?.toString() },
+            include: {
+              zap: {
+                include: {
+                  actions: {
+                    include: { type: true },
+                  },
                 },
               },
             },
-          },
-        });
+          });
 
-        if (!zap) {
-          console.error("Zap not found");
-          return;
-        }
-        console.log("zap", zap);
-        // Step 2: Get Metadata (JSON) extract meaningful information. e.g., user_email, sol_amount
-        const metadata = zap.metadata;
-        console.log(metadata, "is metadata");
-        // Step 3: Get All available actions. e.g., [send_mail, send_sol, send_mail]
-        const actions = zap.zap.actions.map((record) => record.type.name);
-        // Step 4A: Proceed them one by one by their respective order.
+          if (zap) {
+            console.log("zap", zap);
+            // Step 2: Get Metadata (JSON) extract meaningful information. e.g., user_email, sol_amount
+            const metadata = zap.metadata;
+            console.log(metadata, "is metadata");
+            // Step 3: Get All available actions. e.g., [send_mail, send_sol, send_mail]
+            const actions = zap.zap.actions.map((record) => record.type.name);
+            // Step 4A: Proceed them one by one by their respective order.
 
-        console.log("actions are", actions);
-        actions.forEach(async (action) => {
-          console.log("action is", action);
-          switch (action) {
-            case "send_mail":
-              // Step 4A: Send Email
-              console.log("Sending email");
-              break;
-            case "send_sol":
-              // Step 4A: Send Solana using tiplink or smth similar
-              console.log("Sending solana");
-              break;
-            default:
-              console.error("Unknown action type:", action);
+            console.log("actions are", actions);
+            actions.forEach(async (action) => {
+              console.log("action is", action);
+              switch (action) {
+                case "SEND_MAIL":
+                  // Step 4A: Send Email
+                  console.log("Sending email");
+                  break;
+                case "SEND_SOL":
+                  // Step 4A: Send Solana using tiplink or smth similar
+                  console.log("Sending solana");
+                  break;
+                default:
+                  console.error("Unknown action type:", action);
+              }
+            });
+          } else {
+            console.error("Zap not found");
           }
-        });
+        } else {
+          console.warn("Message value is null");
+        }
         // Step 5: Commit the kafka message to delete it from the queue
         await consumer.commitOffsets([
           {
@@ -73,6 +75,7 @@ async function main() {
         ]);
       },
     });
+    console.log("program finish");
   } catch (error) {
     console.error("Error in worker:", error);
   }
