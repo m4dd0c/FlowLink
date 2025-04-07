@@ -1,4 +1,4 @@
-import { Kafka } from "kafkajs";
+import { Kafka, Partitioners } from "kafkajs";
 import dotenv from "dotenv";
 import path from "path";
 
@@ -28,4 +28,5 @@ class KafkaSingleton {
 const instance = KafkaSingleton.instance;
 
 export const KAFKA_TOPIC_NAME = "topic-flowlink";
+export { Partitioners };
 export default instance;
