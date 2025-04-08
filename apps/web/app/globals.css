@@ -4,6 +4,8 @@
 @theme {
   --color-background: rgb(255, 255, 255);
   --color-foreground: rgb(0, 0, 0);
+  --font-poppins: var(--font-poppins);
+  --font-playfair: var(--font-playfair);
 }
 
 @layer theme {
