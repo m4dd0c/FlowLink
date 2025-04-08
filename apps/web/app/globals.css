@@ -1,1 +1,18 @@
 @import "tailwindcss";
+
+/* native theme color-scheme */
+@theme {
+  --color-background: rgb(255, 255, 255);
+  --color-foreground: rgb(0, 0, 0);
+}
+
+@layer theme {
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-background: rgb(0, 0, 0);
+      --color-foreground: rgb(255, 255, 255);
+    }
+  }
+}
+
+/* properties */
