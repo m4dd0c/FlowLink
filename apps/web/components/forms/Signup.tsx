@@ -3,7 +3,6 @@ import React from "react";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -33,7 +32,7 @@ const LoginForm = () => {
 
   return (
     <>
-      <h1 className="text-2xl">Log in to your account.</h1>
+      <h1 className="text-2xl">Sign up to create your account.</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -79,20 +78,15 @@ const LoginForm = () => {
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>
-                  <Link
-                    href="/forgot-password"
-                    className="text-sm text-blue-500 hover:underline"
-                  >
-                    Forgot password?
-                  </Link>
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
           <small>
-            Don&apos;t have an account? <Link href="/sign-up">Sign up</Link>
+            Already have an account?{" "}
+            <Link href="/log-in" className="text-orange-500">
+              Log in
+            </Link>
           </small>
           <Button type="submit">Log in</Button>
         </form>

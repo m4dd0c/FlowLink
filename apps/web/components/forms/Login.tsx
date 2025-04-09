@@ -68,7 +68,7 @@ const LoginForm = () => {
                 <FormDescription>
                   <Link
                     href="/forgot-password"
-                    className="text-sm text-blue-500 hover:underline"
+                    className="text-sm text-orange-500 hover:underline"
                   >
                     Forgot password?
                   </Link>
@@ -78,7 +78,8 @@ const LoginForm = () => {
             )}
           />
           <small>
-            Don&apos;t have an account? <Link href="/sign-up">Sign up</Link>
+            Don&apos;t have an account?{" "}
+            <Link href="/sign-up text-orange-500">Sign up</Link>
           </small>
           <Button type="submit">Log in</Button>
         </form>
