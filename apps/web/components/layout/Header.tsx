@@ -7,7 +7,7 @@ import { IoPersonOutline } from "react-icons/io5";
 const Header = () => {
   const auth = true;
   return (
-    <div className="flex justify-between items-center py-1 px-4 shadow-md shadow-foreground/5">
+    <div className="flex fixed top-0 inset-x-0 z-50 justify-between items-center py-1 px-4 shadow-md shadow-foreground/5">
       <div className="flex items-center justify-center gap-2">
         <Image
           src={logo}
