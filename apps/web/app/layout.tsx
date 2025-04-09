@@ -30,10 +30,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.variable} ${montserrat.variable} bg-background text-foreground antialiased`}
+        className={`${poppins.variable} ${montserrat.variable} antialiased`}
       >
         <Header />
-        <main className="p-4">{children}</main>
+        <main className="p-4 pt-20">{children}</main>
         <Footer />
       </body>
     </html>
