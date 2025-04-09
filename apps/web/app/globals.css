@@ -3,36 +3,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* native theme color-scheme */
-@theme {
-  --color-background: rgb(255, 255, 255);
-  --color-foreground: rgb(0, 0, 0);
-  --font-poppins: var(--font-poppins);
-  --font-playfair: var(--font-playfair);
-  --animate-bounce-x: bounce-x 1s infinite linear;
-
-  @keyframes bounce-x {
-    0%,
-    100% {
-      transform: translateX(25%);
-      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-    }
-    50% {
-      transform: none;
-      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-    }
-  }
-}
-
-@layer theme {
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --color-background: rgb(0, 0, 0);
-      --color-foreground: rgb(255, 255, 255);
-    }
-  }
-}
-
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -69,6 +39,23 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* custom */
+  --font-poppins: var(--font-poppins);
+  --font-playfair: var(--font-playfair);
+  --animate-bounce-x: bounce-x 1s infinite linear;
+
+  @keyframes bounce-x {
+    0%,
+    100% {
+      transform: translateX(25%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: none;
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
 }
 
 :root {
