@@ -32,9 +32,9 @@ const LoginForm = () => {
 
   return (
     <>
-      <h1 className="text-2xl">Log in to your account.</h1>
+      <h1 className="text-2xl mb-8">Log in to your account.</h1>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
             control={form.control}
             name="email"
@@ -79,9 +79,14 @@ const LoginForm = () => {
           />
           <small>
             Don&apos;t have an account?{" "}
-            <Link href="/sign-up text-orange-500">Sign up</Link>
+            <Link href="/sign-up" className="text-orange-500">
+              Sign up
+            </Link>
           </small>
-          <Button type="submit">Log in</Button>
+          <br />
+          <Button className="my-1" type="submit">
+            Log in
+          </Button>
         </form>
       </Form>
     </>
