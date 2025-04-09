@@ -13,7 +13,7 @@ const Footer = () => {
   return (
     <div className="px-8 max-md:px-4 py-4">
       <div>
-        <h1 className="text-9xl font-extrabold text-foreground/30 text-center my-24 transition-colors hover:text-foreground/50">
+        <h1 className="text-9xl font-extrabold text-foreground/10 text-center select-none my-24 transition-colors duration-[5000ms] hover:text-foreground/90">
           FlowLink
         </h1>
       </div>
