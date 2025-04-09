@@ -16,7 +16,7 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { SignupFormSchema } from "@/lib/schema/schema";
 
-const LoginForm = () => {
+const SignupForm = () => {
   const form = useForm<z.infer<typeof SignupFormSchema>>({
     resolver: zodResolver(SignupFormSchema),
     defaultValues: {
@@ -32,9 +32,9 @@ const LoginForm = () => {
 
   return (
     <>
-      <h1 className="text-2xl">Sign up to create your account.</h1>
+      <h1 className="text-2xl mb-8">Sign up to create your account.</h1>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
             control={form.control}
             name="name"
@@ -43,8 +43,8 @@ const LoginForm = () => {
                 <FormLabel>Name</FormLabel>
                 <FormControl>
                   <Input type="text" placeholder="e.g., John Doe" {...field} />
-                  <FormMessage />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -88,11 +88,14 @@ const LoginForm = () => {
               Log in
             </Link>
           </small>
-          <Button type="submit">Log in</Button>
+          <br />
+          <Button className="my-1" type="submit">
+            Sign up
+          </Button>
         </form>
       </Form>
     </>
   );
 };
 
-export default LoginForm;
+export default SignupForm;
