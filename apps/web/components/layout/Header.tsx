@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import logo from "../../public/logo.png";
 import Link from "next/link";
 import { IoPersonOutline } from "react-icons/io5";
+import { ToggleThemeMode } from "../ui/ToggleThemeMode";
 
 const Header = () => {
   const auth = false;
@@ -31,7 +32,7 @@ const Header = () => {
         />
         <h1 className="text-3xl font-bold">FlowLink</h1>
       </div>
-      <div className="menu px-8 max-md:px-4">
+      <div className="flex gap-4 px-8 max-md:px-4">
         {auth ? (
           <ul className="flex items-center gap-4 font-semibold">
             <li className="hover:bg-foreground/10 px-3 py-1 rounded-sm">
@@ -56,6 +57,8 @@ const Header = () => {
             </li>
           </ul>
         )}
+
+        <ToggleThemeMode />
       </div>
     </div>
   );
