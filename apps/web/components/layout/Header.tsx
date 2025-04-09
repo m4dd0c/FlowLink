@@ -6,7 +6,7 @@ import Link from "next/link";
 import { IoPersonOutline } from "react-icons/io5";
 
 const Header = () => {
-  const auth = true;
+  const auth = false;
   const [scroll, setScroll] = useState(false);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const Header = () => {
         ) : (
           <ul className="flex items-center gap-4 font-semibold">
             <li className="hover:bg-foreground/10 px-2 py-1 rounded-sm">
-              <Link href="/login">Log in</Link>
+              <Link href="/log-in">Log in</Link>
             </li>
             <li className="bg-orange-500 rounded-full px-3 py-1">
               <Link href="/sign-up">Sign up</Link>
