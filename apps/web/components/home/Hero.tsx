@@ -6,7 +6,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 const Hero = () => {
   return (
     <div className="container mx-auto h-screen overflow-hidden">
-      <div className="flex justify-between items-center pt-20 max-md:flex-col mt-16">
+      <div className="flex justify-between items-center max-md:flex-col mt-16">
         <div className="flex-1">
           <h1 className="text-6xl max-md:text-4xl font-bold">
             Workflow automation software for everyone.
