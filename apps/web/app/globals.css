@@ -6,6 +6,20 @@
   --color-foreground: rgb(0, 0, 0);
   --font-poppins: var(--font-poppins);
   --font-playfair: var(--font-playfair);
+
+  --animate-bounce-x: bounce-x 1s infinite linear;
+
+  @keyframes bounce-x {
+    0%,
+    100% {
+      transform: translateX(25%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: none;
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
 }
 
 @layer theme {
