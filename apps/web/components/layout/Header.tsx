@@ -1,13 +1,26 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../public/logo.png";
 import Link from "next/link";
 import { IoPersonOutline } from "react-icons/io5";
 
 const Header = () => {
   const auth = true;
+  const [scroll, setScroll] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScroll(window.scrollY > 40);
+    };
+    document.addEventListener("scroll", handleScroll);
+    return () => document.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="flex fixed top-0 inset-x-0 z-50 justify-between items-center py-1 px-4 shadow-md shadow-foreground/5">
+    <div
+      className={`flex transition-all duration-300  fixed top-0 inset-x-0 z-50 justify-between items-center py-1 px-4 ${scroll && "bg-background/80 backdrop-blur-md"} `}
+    >
       <div className="flex items-center justify-center gap-2">
         <Image
           src={logo}
