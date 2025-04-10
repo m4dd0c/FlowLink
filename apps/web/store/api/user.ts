@@ -16,6 +16,7 @@ const user = createApi({
   tagTypes: [tagTypes.user, tagTypes.zap],
   baseQuery: fetchBaseQuery({
     baseUrl: new URL("/api/user", PRIMARY_BE_URL).toString(),
+    credentials: "include",
   }),
   endpoints: (build) => ({
     login: build.mutation<
