@@ -17,8 +17,13 @@ import { z } from "zod";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { LoginFormSchema } from "@/lib/schema/schema";
+import { useLoginMutation } from "@/store/api/user";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
+  const [trigger] = useLoginMutation();
+  const route = useRouter();
+
   const form = useForm<z.infer<typeof LoginFormSchema>>({
     resolver: zodResolver(LoginFormSchema),
     defaultValues: {
@@ -26,8 +31,15 @@ const LoginForm = () => {
       password: "",
     },
   });
-  const onSubmit = (values: z.infer<typeof LoginFormSchema>) => {
-    console.log("submitted", values);
+
+  const onSubmit = async (values: z.infer<typeof LoginFormSchema>) => {
+    try {
+      const res = await trigger(values).unwrap();
+      console.log(res);
+      route.push("/me");
+    } catch (err: any) {
+      console.error(err?.response?.data.message);
+    }
   };
 
   return (
