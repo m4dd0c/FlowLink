@@ -6,8 +6,13 @@ import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 
 export function ToggleThemeMode() {
+  const [mount, setMount] = React.useState(false);
   const { setTheme, theme } = useTheme();
 
+  React.useEffect(() => {
+    setMount(true);
+  }, []);
+  if (!mount) return null;
   return (
     <Button
       variant={"ghost"}
