@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import axios from "axios";
 import {
   Form,
   FormControl,
@@ -15,8 +16,11 @@ import { z } from "zod";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { SignupFormSchema } from "@/lib/schema/schema";
+import { useSignupMutation } from "@/store/api/user";
 
 const SignupForm = () => {
+  const [trigger] = useSignupMutation();
+
   const form = useForm<z.infer<typeof SignupFormSchema>>({
     resolver: zodResolver(SignupFormSchema),
     defaultValues: {
@@ -26,8 +30,13 @@ const SignupForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof SignupFormSchema>) => {
-    console.log("submitted", values);
+  const onSubmit = async (values: z.infer<typeof SignupFormSchema>) => {
+    try {
+      const res = await trigger(values).unwrap();
+      console.log(res);
+    } catch (err: any) {
+      console.error(err?.response?.data.message);
+    }
   };
 
   return (
