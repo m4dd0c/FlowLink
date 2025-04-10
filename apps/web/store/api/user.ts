@@ -4,11 +4,11 @@ import { PRIMARY_BE_URL, tagTypes } from "..";
 const user = createApi({
   reducerPath: "user",
   tagTypes: [tagTypes.user, tagTypes.zap],
-  baseQuery: fetchBaseQuery({ baseUrl: `${PRIMARY_BE_URL}/api` }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${PRIMARY_BE_URL}/api/user` }),
   endpoints: (build) => ({
     login: build.mutation({
       query: (body) => ({
-        url: "/auth/login",
+        url: "/sign-in",
         method: "POST",
         body,
       }),
@@ -19,7 +19,7 @@ const user = createApi({
 
     signup: build.mutation({
       query: (body) => ({
-        url: "/auth/signup",
+        url: "/sign-up",
         method: "POST",
         body,
       }),
@@ -30,7 +30,7 @@ const user = createApi({
 
     me: build.query({
       query: () => ({
-        url: "/auth/me",
+        url: "/",
       }),
       providesTags: [tagTypes.user],
       transformResponse: (response) => {
@@ -40,7 +40,7 @@ const user = createApi({
 
     logout: build.query({
       query: () => ({
-        url: "/auth/logout",
+        url: "/sign-out",
       }),
       transformResponse: (response) => {
         console.log("LOGOUT", response);
