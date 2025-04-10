@@ -2,6 +2,7 @@ import LoginForm from "@/components/forms/Login";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
+import { FaRegCompass } from "react-icons/fa6";
 
 const Login = () => {
   return (
@@ -13,7 +14,10 @@ const Login = () => {
           work in minutes, not months—no coding required.
         </p>
         <Button>
-          <Link href="/">Explore FlowLink</Link>
+          <Link href="/" className="flex place-items-center gap-1">
+            <FaRegCompass />
+            <p>Explore FlowLink</p>
+          </Link>
         </Button>
       </div>
       <div className="flex-1">
