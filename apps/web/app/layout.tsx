@@ -3,7 +3,8 @@ import "./globals.css";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import { Poppins, Playfair } from "next/font/google";
-import { ThemeProvider } from "@/components/ui/theme-provider";
+import ShadcnThemeProvider from "@/providers/ThemeProvider";
+import QueryProvider from "@/providers/QueryProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -33,16 +34,13 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${montserrat.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Header />
-          <main className="p-4 pt-20">{children}</main>
-          <Footer />
-        </ThemeProvider>
+        <ShadcnThemeProvider>
+          <QueryProvider>
+            <Header />
+            <main className="p-4 pt-20">{children}</main>
+            <Footer />
+          </QueryProvider>
+        </ShadcnThemeProvider>
       </body>
     </html>
   );
