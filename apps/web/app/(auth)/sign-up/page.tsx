@@ -2,7 +2,7 @@ import SignupForm from "@/components/forms/Signup";
 import React from "react";
 import { IoCheckmarkCircle } from "react-icons/io5";
 
-const Login = () => {
+const Signup = () => {
   return (
     <div className="flex mt-24 max-md:flex-col h-screen container mx-auto space-y-8">
       <div className="flex-1 space-y-4">
@@ -31,4 +31,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
