@@ -1,11 +1,21 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
+import user from "./api/user";
+
+export const PRIMARY_BE_URL = "http://localhost:4000";
+export const WEBHOOK_BE_URL = "http://localhost:4001";
+
+export const tagTypes = {
+  user: "USER",
+  zap: "ZAP",
+} as const;
 
 const store = configureStore({
-  reducer: {},
-  middleware: (gDM) => gDM().concat(),
+  reducer: {
+    [user.reducerPath]: user.reducer,
+  },
+  middleware: (gDM) => gDM().concat(user.middleware),
 });
-
 setupListeners(store.dispatch);
 
 export default store;
