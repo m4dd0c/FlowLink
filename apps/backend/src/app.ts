@@ -14,7 +14,7 @@ dotenv.config({ path: path.resolve(__dirname, "../../../.env.backend") });
 export const app: Express = express();
 
 const corsOptions = {
-  origin: "*",
+  origin: "http://localhost:3000",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 };
