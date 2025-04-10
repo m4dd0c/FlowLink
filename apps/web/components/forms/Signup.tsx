@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import axios from "axios";
 import {
   Form,
   FormControl,
@@ -17,9 +16,11 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { SignupFormSchema } from "@/lib/schema/schema";
 import { useSignupMutation } from "@/store/api/user";
+import { useRouter } from "next/navigation";
 
 const SignupForm = () => {
   const [trigger] = useSignupMutation();
+  const route = useRouter();
 
   const form = useForm<z.infer<typeof SignupFormSchema>>({
     resolver: zodResolver(SignupFormSchema),
@@ -34,6 +35,7 @@ const SignupForm = () => {
     try {
       const res = await trigger(values).unwrap();
       console.log(res);
+      route.push("/me");
     } catch (err: any) {
       console.error(err?.response?.data.message);
     }
