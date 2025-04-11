@@ -15,4 +15,19 @@ const ZapIdSchema = z.object({
   zapId: z.string().min(1, "ZapId is required").cuid("Invalid zap id."),
 });
 
-export { SignUpSchema, SignInSchema, ZapIdSchema };
+const ZapCreateSchema = z.object({
+  title: z
+    .string()
+    .min(3, "Title must contain at least 3 characters.")
+    .max(40, "Title must contain at most 40 characters."),
+  availableTriggerId: z.string(),
+  triggerMetadata: z.any().optional(),
+  actions: z.array(
+    z.object({
+      availableActionId: z.string(),
+      actionMetadata: z.any().optional(),
+    }),
+  ),
+});
+
+export { SignUpSchema, SignInSchema, ZapIdSchema, ZapCreateSchema };
