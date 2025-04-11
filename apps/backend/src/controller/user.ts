@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import FlowError from "@flowlink/exres/FlowError";
 import FlowResponse from "@flowlink/exres/FlowResponse";
 import { userDTO } from "@flowlink/utils";
-import { SignInSchema, SignUpSchema } from "../lib/zodSchemas/user";
+import { SignInSchema, SignUpSchema } from "../lib/zodSchemas/schema";
 
 // endpoint /sign-up
 export const signUp = catchAsync(async (req, res) => {
