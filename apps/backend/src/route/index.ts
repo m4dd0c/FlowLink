@@ -1,10 +1,15 @@
 import { app } from "../app";
+
+import zap from "./zaps";
 import user from "./user";
-import zap from "./zap";
+import actions from "./actions";
+import triggers from "./triggers";
 
 const routes = {
   user,
   zap,
+  actions,
+  triggers,
 };
 
 export const setupRoutes = () => {
