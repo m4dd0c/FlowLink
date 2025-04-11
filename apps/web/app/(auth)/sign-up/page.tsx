@@ -5,7 +5,7 @@ import { IoCheckmarkCircle } from "react-icons/io5";
 const Signup = () => {
   return (
     <div className="grid grid-cols-2 place-items-center max-md:grid-cols-1 mt-24 container mx-auto space-y-8">
-      <div className="space-y-4">
+      <div className="w-5/6 space-y-4">
         <h1 className="text-4xl font-bold">
           Join millions worldwide who automate their work using FlowLink.
         </h1>
