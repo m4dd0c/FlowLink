@@ -4,6 +4,6 @@ import { availableTriggers } from "../controller/triggers";
 
 const router: express.Router = express.Router();
 
-router.route("/available").get(isAuth, availableTriggers);
+router.route("/").get(isAuth, availableTriggers);
 
 export default router;
