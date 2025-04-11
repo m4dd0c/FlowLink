@@ -2,9 +2,72 @@ import prisma from "@flowlink/db";
 import catchAsync from "@flowlink/exres/catchAsync";
 import FlowError from "@flowlink/exres/FlowError";
 import FlowResponse from "@flowlink/exres/FlowResponse";
-import { ZapIdSchema } from "../lib/zodSchemas/schema";
+import { ZapCreateSchema, ZapIdSchema } from "../lib/zodSchemas/schema";
 
-export const createZap = catchAsync(async (req, res) => {});
+export const createZap = catchAsync(async (req, res) => {
+  const flowError = new FlowError({ res });
+
+  const { title, availableTriggerId, triggerMetadata, actions } = req.body;
+
+  const validation = ZapCreateSchema.safeParse({
+    availableTriggerId,
+    triggerMetadata,
+    actions,
+  });
+  if (!validation.success)
+    return flowError.send({
+      status: 422,
+      message: "Invalid input",
+    });
+
+  // availableTriggerId: z.string(),
+  // triggerMetadata: z.any().optional(),
+  // actions: z.array(
+  //   z.object({
+  //     availableActionId: z.string(),
+  //     actionMetadata: z.any().optional(),
+  //   }),
+  // ),
+
+  const user = (req as any).user;
+  if (!user)
+    return flowError.send({
+      status: 401,
+      message: "Unauthorized access.",
+    });
+
+  const zap = await prisma.$transaction(async (tx) => {
+    const zap = await tx.zap.create({
+      data: {
+        userId: user.id,
+        title,
+        triggerId: "",
+        actions: {
+          create: validation.data.actions.map((action, idx) => ({
+            actionId: action.availableActionId,
+            sortingOrder: idx,
+            metadata: action.actionMetadata,
+          })),
+        },
+      },
+    });
+    const trigger = await tx.trigger.create({
+      data: {
+        triggerId: validation.data.availableTriggerId,
+        zapId: zap.id,
+      },
+    });
+    await tx.zap.update({
+      where: { id: zap.id, userId: user.id },
+      data: {
+        triggerId: trigger.id,
+      },
+    });
+    return zap.id;
+  });
+
+  return new FlowResponse({ res, data: zap }).send();
+});
 
 export const getZaps = catchAsync(async (req, res) => {
   const flowError = new FlowError({ res });
