@@ -24,7 +24,7 @@ const Signup = () => {
           </li>
         </ul>
       </div>
-      <div>
+      <div className="w-5/6">
         <SignupForm />
       </div>
     </div>
