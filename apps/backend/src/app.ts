@@ -1,7 +1,6 @@
 import express, { Express } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import { FRONTEND_URL } from ".";
 import cookieParser from "cookie-parser";
 import { setupRoutes } from "./route";
 import error from "@flowlink/exres/error";
