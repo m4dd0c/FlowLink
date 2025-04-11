@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "../ui/button";
 import { ContactFormSchema } from "@/lib/schema/schema";
+import { IoSendSharp } from "react-icons/io5";
 
 const ContactForm = () => {
   const form = useForm<z.infer<typeof ContactFormSchema>>({
@@ -86,9 +87,9 @@ const ContactForm = () => {
               </FormItem>
             )}
           />
-          <br />
-          <Button className="my-1" type="submit">
-            Send
+          <Button className="mt-1">
+            <p>Send</p>
+            <IoSendSharp />
           </Button>
         </form>
       </Form>
