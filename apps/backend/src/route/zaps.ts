@@ -1,5 +1,10 @@
 import express from "express";
-import { createZap, deleteZap, getSingleZap, getZaps } from "../controller/zap";
+import {
+  createZap,
+  deleteZap,
+  getSingleZap,
+  getZaps,
+} from "../controller/zaps";
 import { isAuth } from "../middleware/isAuth";
 
 const router: express.Router = express.Router();
