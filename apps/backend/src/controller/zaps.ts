@@ -65,5 +65,27 @@ export const getSingleZap = catchAsync(async (req, res) => {
 });
 
 export const deleteZap = catchAsync(async (req, res) => {
+  const flowError = new FlowError({ res });
+
   const { zapId } = req.params;
+
+  const validation = ZapIdSchema.safeParse(zapId);
+  if (!validation.success)
+    return flowError.send({
+      status: 422,
+      message: "Invalid input",
+    });
+
+  const user = (req as any).user;
+  if (!user)
+    return flowError.send({
+      status: 401,
+      message: "Unauthorized access.",
+    });
+
+  await prisma.zap.delete({
+    where: { id: zapId, userId: user.id },
+  });
+
+  return new FlowResponse({ res, message: "Zap deleted successfully." }).send();
 });
