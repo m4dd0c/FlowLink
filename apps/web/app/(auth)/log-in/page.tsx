@@ -20,7 +20,7 @@ const Login = () => {
           </Link>
         </Button>
       </div>
-      <div>
+      <div className="w-5/6">
         <LoginForm />
       </div>
     </div>
