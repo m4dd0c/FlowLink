@@ -22,7 +22,7 @@ const Contact = () => {
           </li>
         </ul>
       </div>
-      <div>
+      <div className="w-5/6">
         <ContactForm />
       </div>
     </div>
