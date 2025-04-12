@@ -22,16 +22,18 @@ const Header = () => {
     <div
       className={`flex transition-all duration-300  fixed top-0 inset-x-0 z-50 justify-between items-center py-1 px-4 ${scroll && "bg-background/80 backdrop-blur-md"} `}
     >
-      <div className="flex items-center justify-center gap-2">
-        <Image
-          src={logo}
-          alt="logo"
-          className="h-14 w-14 invert-100"
-          height={1080}
-          width={1080}
-        />
-        <h1 className="text-3xl font-bold">FlowLink</h1>
-      </div>
+      <Link href={"/"} className="flex items-center gap-2">
+        <div className="flex items-center justify-center gap-2">
+          <Image
+            src={logo}
+            alt="logo"
+            className="h-14 w-14 invert-100"
+            height={1080}
+            width={1080}
+          />
+          <h1 className="text-3xl font-bold">FlowLink</h1>
+        </div>
+      </Link>
       <div className="flex gap-4 px-8 max-md:px-4">
         {auth ? (
           <ul className="flex items-center gap-4 font-semibold">
