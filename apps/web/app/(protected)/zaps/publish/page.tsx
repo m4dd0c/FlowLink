@@ -32,7 +32,7 @@ const Node = ({
       "Are you sure you want to delete this action?",
     );
     if (!confirmation) return;
-    console.log("Delete action");
+    console.log("Delete action", id);
   };
 
   return (
@@ -94,6 +94,12 @@ const initialNodes = [
   },
 ];
 const PublishZap = () => {
+  const handleAddActionNode = (id: number) => {
+    // Handle add action node
+    console.log("Add action node", id);
+    // Chnge the id to the next available id
+  };
+
   return (
     <div className="min-h-screen">
       <h1 className="text-2xl font-bold my-4">Publish Zap</h1>
@@ -110,7 +116,11 @@ const PublishZap = () => {
               <div>
                 <span className="block mx-auto h-8 w-1 rounded-full bg-foreground" />
                 <div className="mx-auto w-fit">
-                  <Button size="icon" className="my-1 rounded-full">
+                  <Button
+                    size="icon"
+                    onClick={() => handleAddActionNode(id)}
+                    className="my-1 rounded-full"
+                  >
                     <FaPlus />
                   </Button>
                 </div>
