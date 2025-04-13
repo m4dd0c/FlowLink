@@ -1,18 +1,33 @@
 "use client";
-import React, { useEffect } from "react";
+
+import { useEffect, useState } from "react";
+import { useGetZapQuery } from "@/store/api/zaps";
 
 const Zap = ({ params }: { params: Promise<{ zapId: string }> }) => {
-  useEffect(() => {
-    async function fetchZap() {
-      const { zapId } = await params;
-      console.log(zapId);
-      // const zap = await getZapQuery(zapId.zapId);
-      // setZap(zap);
-    }
+  const [zapId, setZapId] = useState<string | null>(null);
 
-    fetchZap();
+  useEffect(() => {
+    params.then(({ zapId }) => setZapId(zapId));
   }, [params]);
-  return <div>page</div>;
+
+  const { isFetching, refetch, data } = useGetZapQuery(
+    { zapId: zapId || "" },
+    { skip: !zapId },
+  );
+
+  useEffect(() => {
+    if (zapId) refetch();
+  }, [zapId, refetch]);
+
+  console.log("data", data?.data);
+  if (!zapId || isFetching) return <h1>Loading...</h1>;
+
+  return (
+    <div>
+      <h1>Hello world</h1>
+      {JSON.stringify(data?.data)} is the data
+    </div>
+  );
 };
 
 export default Zap;
