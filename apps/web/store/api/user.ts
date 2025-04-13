@@ -6,7 +6,7 @@ import { PRIMARY_BE_URL, tagTypes } from "@/lib/constants";
 
 const user = createApi({
   reducerPath: "user",
-  tagTypes: [tagTypes.user, tagTypes.zap],
+  tagTypes: [tagTypes.user, tagTypes.zaps],
   baseQuery: fetchBaseQuery({
     baseUrl: new URL("/api/user", PRIMARY_BE_URL).toString(),
     credentials: "include",
