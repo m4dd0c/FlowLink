@@ -124,7 +124,7 @@ export const deleteZap = catchAsync(async (req, res) => {
 
   const { zapId } = req.params;
 
-  const validation = ZapIdSchema.safeParse(zapId);
+  const validation = ZapIdSchema.safeParse({ zapId });
   if (!validation.success)
     return flowError.send({
       status: 422,
