@@ -22,7 +22,16 @@ export const isAuth = catchAsync(async (req, res, next) => {
       message: "You are unauthorized",
     });
 
-  const user = await prisma.auth.findUnique({ where: { id: userId } });
+  const user = await prisma.auth.findUnique({
+    where: { id: userId },
+    include: {
+      user: {
+        select: {
+          id: true,
+        },
+      },
+    },
+  });
   if (!user)
     return flowError.send({
       status: 401,
@@ -30,5 +39,6 @@ export const isAuth = catchAsync(async (req, res, next) => {
     });
 
   (req as any).user = user;
+
   next();
 });
