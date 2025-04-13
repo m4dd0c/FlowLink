@@ -70,8 +70,10 @@ model AvailableTriggers {
 model Trigger {
   id String @id @default(cuid())
 
-  triggerId String
-  type      AvailableTriggers @relation(fields: [triggerId], references: [id])
+  metadata    Json  @default("{}")
+
+  availableTriggerId String
+  type      AvailableTriggers @relation(fields: [availableTriggerId], references: [id])
 
   zapId String @unique
   zap   Zap    @relation(fields: [zapId], references: [id], onDelete: Cascade)
@@ -86,8 +88,10 @@ model AvailableActions {
 model Action {
   id String @id @default(cuid())
 
-  type     AvailableActions @relation(fields: [actionId], references: [id])
-  actionId String
+  metadata    Json  @default("{}")
+
+  availableActionId String
+  type     AvailableActions @relation(fields: [availableActionId], references: [id])
 
   sortingOrder Int @default(0)
 
