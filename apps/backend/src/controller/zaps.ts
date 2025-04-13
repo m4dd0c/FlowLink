@@ -7,27 +7,19 @@ import { ZapCreateSchema, ZapIdSchema } from "../lib/zodSchemas/schema";
 export const createZap = catchAsync(async (req, res) => {
   const flowError = new FlowError({ res });
 
-  const { title, availableTriggerId, triggerMetadata, actions } = req.body;
+  const body = req.body;
 
-  const validation = ZapCreateSchema.safeParse({
-    availableTriggerId,
-    triggerMetadata,
-    actions,
-  });
-  if (!validation.success)
+  const validation = ZapCreateSchema.safeParse(body);
+
+  if (!validation.success) {
+    console.log(validation.error.issues);
     return flowError.send({
       status: 422,
       message: "Invalid input",
     });
-
-  // availableTriggerId: z.string(),
-  // triggerMetadata: z.any().optional(),
-  // actions: z.array(
-  //   z.object({
-  //     availableActionId: z.string(),
-  //     actionMetadata: z.any().optional(),
-  //   }),
-  // ),
+  }
+  const { title, availableTriggerId, triggerMetadata, actions } =
+    validation.data;
 
   const user = (req as any).user;
   if (!user)
@@ -39,12 +31,12 @@ export const createZap = catchAsync(async (req, res) => {
   const zap = await prisma.$transaction(async (tx) => {
     const zap = await tx.zap.create({
       data: {
-        userId: user.id,
+        userId: user.user.id,
         title,
         triggerId: "",
         actions: {
-          create: validation.data.actions.map((action, idx) => ({
-            actionId: action.availableActionId,
+          create: actions.map((action, idx) => ({
+            availableActionId: action.availableActionId,
             sortingOrder: idx,
             metadata: action.actionMetadata,
           })),
@@ -53,12 +45,13 @@ export const createZap = catchAsync(async (req, res) => {
     });
     const trigger = await tx.trigger.create({
       data: {
-        triggerId: validation.data.availableTriggerId,
+        availableTriggerId: availableTriggerId,
+        metadata: triggerMetadata,
         zapId: zap.id,
       },
     });
     await tx.zap.update({
-      where: { id: zap.id, userId: user.id },
+      where: { id: zap.id, userId: user.user.id },
       data: {
         triggerId: trigger.id,
       },
@@ -79,7 +72,7 @@ export const getZaps = catchAsync(async (req, res) => {
     });
 
   const zaps = await prisma.zap.findMany({
-    where: { userId: user.id },
+    where: { userId: user.user.id },
     include: {
       trigger: {
         select: { type: true },
@@ -98,7 +91,7 @@ export const getSingleZap = catchAsync(async (req, res) => {
 
   const { zapId } = req.params;
 
-  const validation = ZapIdSchema.safeParse(zapId);
+  const validation = ZapIdSchema.safeParse({ zapId });
   if (!validation.success)
     return flowError.send({
       status: 422,
@@ -113,14 +106,14 @@ export const getSingleZap = catchAsync(async (req, res) => {
     });
 
   const zap = await prisma.zap.findFirst({
-    where: { id: zapId, userId: user.id },
+    where: { id: zapId, userId: user.user.id },
     include: {
       trigger: {
-        select: { type: true },
-      },
+        select: { type: true, metadata: true, availableTriggerId: true },
+      }
       actions: {
-        select: { type: true },
-      },
+        select: { type: true, metadata: true, availableActionId: true },
+      }
     },
   });
 
@@ -147,7 +140,7 @@ export const deleteZap = catchAsync(async (req, res) => {
     });
 
   await prisma.zap.delete({
-    where: { id: zapId, userId: user.id },
+    where: { id: zapId, userId: user.user.id },
   });
 
   return new FlowResponse({ res, message: "Zap deleted successfully." }).send();
