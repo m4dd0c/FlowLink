@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { BiLogoGmail } from "react-icons/bi";
+import { FaPlus } from "react-icons/fa6";
 import { FiEdit2 } from "react-icons/fi";
 import { HiTrash } from "react-icons/hi2";
 import { RiWebhookLine } from "react-icons/ri";
@@ -96,16 +97,26 @@ const PublishZap = () => {
   return (
     <div className="min-h-screen">
       <h1 className="text-2xl font-bold my-4">Publish Zap</h1>
-      <div className="space-y-14 mx-auto w-1/4">
+      <div className="mx-auto w-1/4">
         {initialNodes.map(({ id, icon, trigger, action }) => {
           return (
-            <Node
-              key={id}
-              icon={icon}
-              id={id}
-              trigger={trigger ? trigger : undefined}
-              action={action ? action : undefined}
-            />
+            <div key={id}>
+              <Node
+                icon={icon}
+                id={id}
+                trigger={trigger ? trigger : undefined}
+                action={action ? action : undefined}
+              />
+              <div>
+                <span className="block mx-auto h-8 w-1 rounded-full bg-foreground" />
+                <div className="mx-auto w-fit">
+                  <Button size="icon" className="my-1 rounded-full">
+                    <FaPlus />
+                  </Button>
+                </div>
+                <span className="block mx-auto h-8 w-1 rounded-full bg-foreground" />
+              </div>
+            </div>
           );
         })}
       </div>
