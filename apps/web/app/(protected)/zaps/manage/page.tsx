@@ -13,16 +13,25 @@ import { HiOutlineTrash } from "react-icons/hi2";
 import { FaRegEye } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useGetAllZapsQuery } from "@/store/api/zaps";
+import { useDeleteZapMutation, useGetAllZapsQuery } from "@/store/api/zaps";
 import { tUnknownObj } from "@/types";
 
 const ManageZap = () => {
   const { isFetching, data } = useGetAllZapsQuery(null);
+  const [trigger] = useDeleteZapMutation();
 
   console.log(data);
-  const handleZapDelete = (zapId?: string) => {
-    if (!zapId) return;
-    alert("delete");
+  const handleZapDelete = async (zapId?: string) => {
+    if (!zapId) return alert("Please provide a zapId");
+    const confirm = window.confirm(
+      "Are you sure you want to delete this zap? This action is irreversible.",
+    );
+    if (!confirm) return;
+    try {
+      await trigger({ zapId }).unwrap();
+    } catch (error) {
+      console.error(JSON.stringify(error));
+    }
   };
   if (isFetching) return <h1>Loading...</h1>;
   return (
