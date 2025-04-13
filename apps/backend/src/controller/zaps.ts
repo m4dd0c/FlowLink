@@ -11,13 +11,12 @@ export const createZap = catchAsync(async (req, res) => {
 
   const validation = ZapCreateSchema.safeParse(body);
 
-  if (!validation.success) {
-    console.log(validation.error.issues);
+  if (!validation.success)
     return flowError.send({
       status: 422,
       message: "Invalid input",
     });
-  }
+    
   const { title, availableTriggerId, triggerMetadata, actions } =
     validation.data;
 
