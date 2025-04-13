@@ -2,14 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { z } from "zod";
 import { LoginFormSchema, SignupFormSchema } from "@/lib/schema/schema";
 import { iUserApiResponse, tUnknownObj } from "@/types";
-
-export const PRIMARY_BE_URL = "http://localhost:4000";
-export const WEBHOOK_BE_URL = "http://localhost:4001";
-
-export const tagTypes = {
-  user: "USER",
-  zap: "ZAP",
-} as const;
+import { PRIMARY_BE_URL, tagTypes } from "@/lib/constants";
 
 const user = createApi({
   reducerPath: "user",
