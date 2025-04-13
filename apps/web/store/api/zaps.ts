@@ -1,5 +1,8 @@
 import { PRIMARY_BE_URL, tagTypes } from "@/lib/constants";
+import { ZapCreateSchema, ZapIdSchema } from "@/lib/schema/schema";
+import { iFlowResponse, tUnknownObj } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { z } from "zod";
 
 const zaps = createApi({
   reducerPath: "zaps",
@@ -10,7 +13,7 @@ const zaps = createApi({
   }),
   endpoints: (build) => ({
     // Get all zaps
-    getAllZaps: build.query({
+    getAllZaps: build.query<iFlowResponse<tUnknownObj>, null>({
       query: () => ({
         url: "/",
       }),
@@ -18,7 +21,10 @@ const zaps = createApi({
     }),
 
     // Get a zap by id
-    getZap: build.query({
+    getZap: build.query<
+      iFlowResponse<tUnknownObj>,
+      z.infer<typeof ZapIdSchema>
+    >({
       query: (id) => ({
         url: `/${id}`,
       }),
@@ -26,7 +32,10 @@ const zaps = createApi({
     }),
 
     // Create a zap
-    createZap: build.mutation({
+    createZap: build.mutation<
+      iFlowResponse<tUnknownObj>,
+      z.infer<typeof ZapCreateSchema>
+    >({
       query: (body) => ({
         url: "/",
         method: "POST",
@@ -36,7 +45,10 @@ const zaps = createApi({
     }),
 
     // Update a zap
-    deleteZap: build.mutation({
+    deleteZap: build.mutation<
+      iFlowResponse<tUnknownObj>,
+      z.infer<typeof ZapIdSchema>
+    >({
       query: (id) => ({
         url: `/${id}`,
         method: "DELETE",
