@@ -16,7 +16,7 @@ export const createZap = catchAsync(async (req, res) => {
       status: 422,
       message: "Invalid input",
     });
-    
+
   const { title, availableTriggerId, triggerMetadata, actions } =
     validation.data;
 
@@ -109,10 +109,10 @@ export const getSingleZap = catchAsync(async (req, res) => {
     include: {
       trigger: {
         select: { type: true, metadata: true, availableTriggerId: true },
-      }
+      },
       actions: {
         select: { type: true, metadata: true, availableActionId: true },
-      }
+      },
     },
   });
 
