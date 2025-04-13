@@ -25,8 +25,8 @@ const zaps = createApi({
       iFlowResponse<tUnknownObj>,
       z.infer<typeof ZapIdSchema>
     >({
-      query: (id) => ({
-        url: `/${id}`,
+      query: ({ zapId }) => ({
+        url: `/${zapId}`,
       }),
       providesTags: [tagTypes.zaps],
     }),
@@ -49,8 +49,8 @@ const zaps = createApi({
       iFlowResponse<tUnknownObj>,
       z.infer<typeof ZapIdSchema>
     >({
-      query: (id) => ({
-        url: `/${id}`,
+      query: ({ zapId }) => ({
+        url: `/${zapId}`,
         method: "DELETE",
       }),
       invalidatesTags: [tagTypes.zaps],
