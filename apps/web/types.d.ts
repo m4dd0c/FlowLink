@@ -1,4 +1,4 @@
-export interface iUserApiResponse<T> {
+export interface iFlowResponse<T> {
   success: boolean;
   message: string;
   data: T;

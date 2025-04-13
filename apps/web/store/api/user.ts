@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { z } from "zod";
 import { LoginFormSchema, SignupFormSchema } from "@/lib/schema/schema";
-import { iUserApiResponse, tUnknownObj } from "@/types";
+import { iFlowResponse, tUnknownObj } from "@/types";
 import { PRIMARY_BE_URL, tagTypes } from "@/lib/constants";
 
 const user = createApi({
@@ -13,7 +13,7 @@ const user = createApi({
   }),
   endpoints: (build) => ({
     login: build.mutation<
-      iUserApiResponse<tUnknownObj>,
+      iFlowResponse<tUnknownObj>,
       z.infer<typeof LoginFormSchema>
     >({
       query: (body) => ({
@@ -24,7 +24,7 @@ const user = createApi({
     }),
 
     signup: build.mutation<
-      iUserApiResponse<tUnknownObj>,
+      iFlowResponse<tUnknownObj>,
       z.infer<typeof SignupFormSchema>
     >({
       query: (body) => ({
@@ -34,14 +34,14 @@ const user = createApi({
       }),
     }),
 
-    me: build.query<iUserApiResponse<tUnknownObj>, null>({
+    me: build.query<iFlowResponse<tUnknownObj>, null>({
       query: () => ({
         url: "/",
       }),
       providesTags: [tagTypes.user],
     }),
 
-    logout: build.query<iUserApiResponse<tUnknownObj>, null>({
+    logout: build.query<iFlowResponse<tUnknownObj>, null>({
       query: () => ({
         url: "/sign-out",
       }),
