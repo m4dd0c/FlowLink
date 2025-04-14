@@ -23,6 +23,8 @@ import { z } from "zod";
 import { Button } from "../ui/button";
 import { TriggerNodeSchema } from "@/lib/schema/schema";
 import { useGetAvailableTriggersQuery } from "@/store/api/ancillary";
+import { useDispatch, useSelector } from "react-redux";
+import { setTrigger } from "@/store/slices/ancillary";
 
 const TriggerForm = ({
   node,
@@ -31,14 +33,17 @@ const TriggerForm = ({
   node: any;
   setIsDrawerOpen: (open: boolean) => void;
 }) => {
+  const dispatch = useDispatch();
+  const { trigger } = useSelector((state: any) => state.ancillarySlice);
+
   const { isFetching, data: availableTriggers } =
     useGetAvailableTriggersQuery("");
 
   const form = useForm<z.infer<typeof TriggerNodeSchema>>({
     resolver: zodResolver(TriggerNodeSchema),
     defaultValues: {
-      title: "",
-      availableTriggerId: "",
+      title: trigger?.title || "",
+      availableTriggerId: trigger?.availableTriggerId || "",
       triggerMetadata: "",
     },
   });
@@ -50,7 +55,7 @@ const TriggerForm = ({
           type: "custom",
           message: "Please select a trigger",
         });
-      console.log("done", values);
+      dispatch(setTrigger(values));
       setIsDrawerOpen(false);
     } catch (err: any) {
       console.error(err?.response?.data.message);
