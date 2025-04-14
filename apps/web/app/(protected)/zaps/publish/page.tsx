@@ -8,6 +8,7 @@ import { RiWebhookLine } from "react-icons/ri";
 import { BsFillLightningChargeFill } from "react-icons/bs";
 import { SiSolana } from "react-icons/si";
 import Node from "./Node";
+import { DrawerComp } from "./Drawer";
 
 const initialNodes = [
   {
@@ -79,6 +80,12 @@ const PublishZap = () => {
     setNodes(updatedIndexNodes);
   };
 
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [selectedNode, setSelectedNode] = useState<any>(null);
+  const onEdit = (nodeId: number) => {
+    setIsDrawerOpen(!isDrawerOpen);
+    setSelectedNode(nodes.find((node) => node.id === nodeId));
+  };
   return (
     <div className="min-h-screen">
       <h1 className="text-2xl font-bold my-4">Publish Zap</h1>
@@ -91,6 +98,7 @@ const PublishZap = () => {
                 id={id}
                 trigger={trigger ? trigger : undefined}
                 action={action ? action : undefined}
+                onEdit={onEdit}
               />
               <div>
                 <span className="block mx-auto h-8 w-1 rounded-full bg-foreground" />
