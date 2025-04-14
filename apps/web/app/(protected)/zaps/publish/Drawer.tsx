@@ -23,23 +23,25 @@ export function DrawerComp({
   setIsDrawerOpen: (open: boolean) => void;
   node: any;
 }) {
+  const isTrigger = node?.trigger && node?.id === 0;
   return (
     <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
-            <DrawerTitle>Move Goal</DrawerTitle>
-            <DrawerDescription>Set your daily activity goal.</DrawerDescription>
+            <DrawerTitle>{isTrigger ? "Trigger" : "Action"}</DrawerTitle>
+            <DrawerDescription>
+              {isTrigger ? "Configure your Trigger" : "Configure your Action"}
+            </DrawerDescription>
           </DrawerHeader>
           <div className="p-4 pb-0">
-            {node.trigger && node.id === 0 ? (
-              <TriggerForm node={node} />
+            {isTrigger ? (
+              <TriggerForm node={node} setIsDrawerOpen={setIsDrawerOpen} />
             ) : (
-              <ActionForm node={node} />
+              <ActionForm node={node} setIsDrawerOpen={setIsDrawerOpen} />
             )}
           </div>
           <DrawerFooter>
-            <Button>Submit</Button>
             <DrawerClose asChild>
               <Button variant="outline">Cancel</Button>
             </DrawerClose>
