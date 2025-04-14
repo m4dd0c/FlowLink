@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BiLogoGmail } from "react-icons/bi";
 import { FaPlus } from "react-icons/fa6";
 import { FiEdit2 } from "react-icons/fi";
@@ -59,7 +59,7 @@ const Node = ({
       </div>
       <div>
         <p>
-          <strong>{id}.&nbsp;&nbsp;</strong>
+          <strong>{id + 1}.&nbsp;&nbsp;</strong>
           <span>{label}</span>
         </p>
       </div>
@@ -67,9 +67,9 @@ const Node = ({
   );
 };
 
-const initialNodes = [
+let initialNodes = [
   {
-    id: 1,
+    id: 0,
     icon: <RiWebhookLine />,
     trigger: {
       title: "Webhook",
@@ -77,7 +77,7 @@ const initialNodes = [
     },
   },
   {
-    id: 2,
+    id: 1,
     icon: <BiLogoGmail />,
     action: {
       title: "Gmail",
@@ -85,7 +85,7 @@ const initialNodes = [
     },
   },
   {
-    id: 3,
+    id: 2,
     icon: <SiSolana />,
     action: {
       title: "Solana",
@@ -93,18 +93,52 @@ const initialNodes = [
     },
   },
 ];
+
 const PublishZap = () => {
+  const [nodes, setNodes] = useState<any[]>([]);
+
+  useEffect(() => {
+    setNodes(initialNodes);
+  }, []);
+
   const handleAddActionNode = (id: number) => {
+    const newNodeIndex = id + 1;
     // Handle add action node
-    console.log("Add action node", id);
-    // Chnge the id to the next available id
+    const newNode = {
+      id: newNodeIndex,
+      icon: <BiLogoGmail />,
+      action: {
+        title: "Solanasdfasdfasdfadfa",
+        label: "Send Solanasdfasdfasdfadfsa",
+      },
+    };
+    const updatedIndexNodes = nodes.map((node) => {
+      // trigger node idx, should not be changed
+      if (node.id === 0) {
+        return node;
+      }
+      // Updating id of nodes after newNodeIndex
+      if (newNodeIndex <= node.id) {
+        return {
+          ...node,
+          id: node.id + 1,
+        };
+      } else {
+        return node;
+      }
+    });
+    updatedIndexNodes.splice(newNodeIndex, 0, newNode);
+
+    // const newNodesArray = updatedIndexNodes.splice(id, 0, newNode);
+    setNodes(updatedIndexNodes);
   };
 
+  console.log(nodes);
   return (
     <div className="min-h-screen">
       <h1 className="text-2xl font-bold my-4">Publish Zap</h1>
       <div className="mx-auto w-1/4">
-        {initialNodes.map(({ id, icon, trigger, action }) => {
+        {nodes.map(({ id, icon, trigger, action }) => {
           return (
             <div key={id}>
               <Node
