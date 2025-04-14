@@ -4,70 +4,12 @@ import { Button } from "@/components/ui/button";
 import React, { useEffect, useState } from "react";
 import { BiLogoGmail } from "react-icons/bi";
 import { FaPlus } from "react-icons/fa6";
-import { FiEdit2 } from "react-icons/fi";
-import { HiTrash } from "react-icons/hi2";
 import { RiWebhookLine } from "react-icons/ri";
+import { BsFillLightningChargeFill } from "react-icons/bs";
 import { SiSolana } from "react-icons/si";
+import Node from "./Node";
 
-const Node = ({
-  id,
-  icon,
-  action,
-  trigger,
-}: {
-  id: number;
-  icon: React.ReactNode;
-  action?: Record<string, string>;
-  trigger?: Record<string, string>;
-}) => {
-  if ((!action && !trigger) || (action && trigger)) return null;
-
-  const title = action ? action.title : trigger?.title;
-  const label = action ? action.label : trigger?.label;
-
-  const handleDeleteAction = () => {
-    // Handle delete action
-    if (!action) return;
-    const confirmation = window.confirm(
-      "Are you sure you want to delete this action?",
-    );
-    if (!confirmation) return;
-    console.log("Delete action", id);
-  };
-
-  return (
-    <div className="ring-2 rounded-lg px-4 py-2">
-      <div className="flex justify-between">
-        <div className="flex place-items-center gap-2">
-          {icon}
-          <p>{title}</p>
-        </div>
-        <div className="flex place-items-center gap-1">
-          <Button variant="ghost" size="icon">
-            <FiEdit2 className="cursor-pointer size-4" />
-          </Button>
-          {action && (
-            <Button
-              onClick={() => handleDeleteAction()}
-              variant={"ghost"}
-              size="icon"
-            >
-              <HiTrash className="cursor-pointer text-red-500 size-4" />
-            </Button>
-          )}
-        </div>
-      </div>
-      <div>
-        <p>
-          <strong>{id + 1}.&nbsp;&nbsp;</strong>
-          <span>{label}</span>
-        </p>
-      </div>
-    </div>
-  );
-};
-
-let initialNodes = [
+const initialNodes = [
   {
     id: 0,
     icon: <RiWebhookLine />,
@@ -103,15 +45,18 @@ const PublishZap = () => {
 
   const handleAddActionNode = (id: number) => {
     const newNodeIndex = id + 1;
-    // Handle add action node
+
+    // Creating new action node
     const newNode = {
       id: newNodeIndex,
-      icon: <BiLogoGmail />,
+      icon: <BsFillLightningChargeFill />,
       action: {
-        title: "Solanasdfasdfasdfadfa",
-        label: "Send Solanasdfasdfasdfadfsa",
+        title: "Action",
+        label: "Add New Action",
       },
     };
+
+    // Updating indeces of exisiting nodes
     const updatedIndexNodes = nodes.map((node) => {
       // trigger node idx, should not be changed
       if (node.id === 0) {
@@ -123,17 +68,17 @@ const PublishZap = () => {
           ...node,
           id: node.id + 1,
         };
+        // Node stays unchanged, If it is before newNodeIndex
       } else {
         return node;
       }
     });
-    updatedIndexNodes.splice(newNodeIndex, 0, newNode);
 
-    // const newNodesArray = updatedIndexNodes.splice(id, 0, newNode);
+    // Appending new node
+    updatedIndexNodes.splice(newNodeIndex, 0, newNode);
     setNodes(updatedIndexNodes);
   };
 
-  console.log(nodes);
   return (
     <div className="min-h-screen">
       <h1 className="text-2xl font-bold my-4">Publish Zap</h1>
