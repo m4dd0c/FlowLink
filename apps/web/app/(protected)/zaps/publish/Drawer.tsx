@@ -11,6 +11,8 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
+import ActionForm from "@/components/forms/Action";
+import TriggerForm from "@/components/forms/Trigger";
 
 export function DrawerComp({
   isDrawerOpen,
@@ -29,7 +31,13 @@ export function DrawerComp({
             <DrawerTitle>Move Goal</DrawerTitle>
             <DrawerDescription>Set your daily activity goal.</DrawerDescription>
           </DrawerHeader>
-          <div className="p-4 pb-0">Content node {JSON.stringify(node)}</div>
+          <div className="p-4 pb-0">
+            {node.trigger && node.id === 0 ? (
+              <TriggerForm node={node} />
+            ) : (
+              <ActionForm node={node} />
+            )}
+          </div>
           <DrawerFooter>
             <Button>Submit</Button>
             <DrawerClose asChild>
