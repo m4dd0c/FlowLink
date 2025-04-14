@@ -37,6 +37,15 @@ const initialNodes = [
   },
 ];
 
+//   title: z.string()
+//   availableTriggerId: z.string(),
+//   triggerMetadata: z.any().optional(),
+//   actions: [
+//       availableActionId: z.string(),
+//       actionMetadata: z.any().optional(),
+//   ]
+// https://localhost:4001/hooks/catch/:uId/:zapId/
+
 const PublishZap = () => {
   const [nodes, setNodes] = useState<any[]>([]);
 
@@ -78,6 +87,9 @@ const PublishZap = () => {
     // Appending new node
     updatedIndexNodes.splice(newNodeIndex, 0, newNode);
     setNodes(updatedIndexNodes);
+
+    // opening drawer once the node is created
+    onEdit(newNodeIndex);
   };
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
