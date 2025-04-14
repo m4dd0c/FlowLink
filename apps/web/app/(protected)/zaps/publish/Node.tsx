@@ -8,7 +8,9 @@ const Node = ({
   icon,
   action,
   trigger,
+  onEdit,
 }: {
+  onEdit: (nodeId: number) => void;
   id: number;
   icon: React.ReactNode;
   action?: Record<string, string>;
@@ -37,7 +39,7 @@ const Node = ({
           <p>{title}</p>
         </div>
         <div className="flex place-items-center gap-1">
-          <Button variant="ghost" size="icon">
+          <Button variant="ghost" size="icon" onClick={() => onEdit(id)}>
             <FiEdit2 className="cursor-pointer size-4" />
           </Button>
           {action && (
