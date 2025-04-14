@@ -117,6 +117,11 @@ const PublishZap = () => {
           );
         })}
       </div>
+      <DrawerComp
+        isDrawerOpen={isDrawerOpen}
+        setIsDrawerOpen={setIsDrawerOpen}
+        node={selectedNode}
+      />
     </div>
   );
 };
