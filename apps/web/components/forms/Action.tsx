@@ -25,23 +25,26 @@ import { ActionNodeSchema } from "@/lib/schema/schema";
 import { useGetAvailableActionsQuery } from "@/store/api/ancillary";
 import { useDispatch, useSelector } from "react-redux";
 import { setActions } from "@/store/slices/ancillary";
+import { iSliceState } from "@/types";
 
 const TriggerForm = ({
   setIsDrawerOpen,
+  actionId,
 }: {
   setIsDrawerOpen: (open: boolean) => void;
+  actionId: number;
 }) => {
   const { isFetching, data: availableActions } =
     useGetAvailableActionsQuery("");
   const dispatch = useDispatch();
-  const { actions } = useSelector((state: any) => state.ancillarySlice);
+  const { actions } = useSelector((state: iSliceState) => state.ancillarySlice);
 
   const form = useForm<z.infer<typeof ActionNodeSchema>>({
     resolver: zodResolver(ActionNodeSchema),
     defaultValues: {
-      title: actions?.title || "",
-      availableActionId: actions?.availableActionId || "",
-      actionMetadata: actions?.actionMetadata || "",
+      title: actions[actionId]?.title || "",
+      availableActionId: actions[actionId]?.availableActionId || "",
+      actionMetadata: actions[actionId]?.actionMetadata || "",
     },
   });
 
@@ -52,7 +55,12 @@ const TriggerForm = ({
           type: "custom",
           message: "Please select an Action",
         });
-      dispatch(setActions(values));
+      dispatch(
+        setActions({
+          ...actions[actionId],
+          ...values,
+        }),
+      );
       setIsDrawerOpen(false);
     } catch (err: any) {
       console.error(err?.response?.data.message);
