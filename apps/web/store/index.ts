@@ -13,7 +13,11 @@ const store = configureStore({
     ancillarySlice: ancillarySlice,
   },
   middleware: (gDM) =>
-    gDM().concat(user.middleware, zaps.middleware, ancillary.middleware),
+    gDM({ serializableCheck: false }).concat(
+      user.middleware,
+      zaps.middleware,
+      ancillary.middleware,
+    ),
 });
 setupListeners(store.dispatch);
 
