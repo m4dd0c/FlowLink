@@ -36,14 +36,14 @@ const TriggerForm = ({
   const { trigger } = useSelector((state: iSliceState) => state.ancillarySlice);
 
   const { isFetching, data: availableTriggers } =
-    useGetAvailableTriggersQuery("");
+    useGetAvailableTriggersQuery(null);
 
   const form = useForm<z.infer<typeof TriggerNodeSchema>>({
     resolver: zodResolver(TriggerNodeSchema),
     defaultValues: {
       title: trigger?.title || "",
       availableTriggerId: trigger?.availableTriggerId || "",
-      triggerMetadata: trigger?.metadata || "",
+      triggerMetadata: trigger?.triggerMetadata || "",
     },
   });
 
@@ -54,7 +54,8 @@ const TriggerForm = ({
           type: "custom",
           message: "Please select a trigger",
         });
-      dispatch(setTrigger({ ...values, ...trigger }));
+      console.log(trigger, values, "some data");
+      dispatch(setTrigger({ ...trigger, ...values }));
       setIsDrawerOpen(false);
     } catch (err: any) {
       console.error(err?.response?.data.message);
