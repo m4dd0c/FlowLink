@@ -41,7 +41,7 @@ const PublishZap = () => {
     // Updating indeces of exisiting nodes
     const updatedIndexNodes = actions.map((node) => {
       // Updating id of nodes after newNodeIndex
-      if (newNodeIndex <= node.id) {
+      if (newNodeIndex <= node?.id) {
         return {
           ...node,
           id: node.id + 1,
@@ -64,7 +64,21 @@ const PublishZap = () => {
       "Are you sure you want to delete this action?",
     );
     if (!confirmation) return;
-    console.log("Delete action", id);
+    // Removing the Node
+    const acts = actions.filter((action) => action?.id !== id);
+    // Updating indeces of exisiting nodes
+    const nodes = acts.map((node) => {
+      if (node?.id > id) {
+        return {
+          ...node,
+          id: node?.id - 1,
+        };
+      } else {
+        return node;
+      }
+    });
+    // Updating Actions[]
+    dispatch(setActions(nodes));
   };
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -93,9 +107,9 @@ const PublishZap = () => {
         )}
         {/* Action Nodes */}
         {actions &&
-          actions?.map((action) => {
+          actions?.map((action, idx) => {
             return (
-              <div key={action.id}>
+              <div key={idx}>
                 <Node
                   action={action}
                   onEdit={onEdit}
