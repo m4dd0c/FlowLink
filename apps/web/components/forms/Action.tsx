@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Form,
   FormControl,
@@ -39,7 +39,7 @@ const TriggerForm = ({
   const dispatch = useDispatch();
   const { actions } = useSelector((state: iSliceState) => state.ancillarySlice);
 
-  const [actionNode, setActionNode] = useState<
+  const [actionNode] = useState<
     iAncillarySliceState["actions"][number] | undefined
   >(actions.find((action) => action.id === actionId));
 
