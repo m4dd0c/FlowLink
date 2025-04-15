@@ -17,13 +17,13 @@ import TriggerForm from "@/components/forms/Trigger";
 export function DrawerComp({
   isDrawerOpen,
   setIsDrawerOpen,
-  node,
+  nodeId,
 }: {
   isDrawerOpen: boolean;
   setIsDrawerOpen: (open: boolean) => void;
-  node: any;
+  nodeId: number;
 }) {
-  const isTrigger = node?.trigger && node?.id === 0;
+  const isTrigger = nodeId === 0;
   return (
     <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
       <DrawerContent>
@@ -31,14 +31,14 @@ export function DrawerComp({
           <DrawerHeader>
             <DrawerTitle>{isTrigger ? "Trigger" : "Action"}</DrawerTitle>
             <DrawerDescription>
-              {isTrigger ? "Configure your Trigger" : "Configure your Action"}
+              Configure your {isTrigger ? "Trigger" : "Action"}
             </DrawerDescription>
           </DrawerHeader>
           <div className="p-4 pb-0">
             {isTrigger ? (
-              <TriggerForm node={node} setIsDrawerOpen={setIsDrawerOpen} />
+              <TriggerForm setIsDrawerOpen={setIsDrawerOpen} />
             ) : (
-              <ActionForm node={node} setIsDrawerOpen={setIsDrawerOpen} />
+              <ActionForm actionId={nodeId} setIsDrawerOpen={setIsDrawerOpen} />
             )}
           </div>
           <DrawerFooter>
