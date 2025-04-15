@@ -7,8 +7,11 @@ import { FaPlus } from "react-icons/fa6";
 import { RiWebhookLine } from "react-icons/ri";
 import { BsFillLightningChargeFill } from "react-icons/bs";
 import { SiSolana } from "react-icons/si";
+import { LuPlugZap } from "react-icons/lu";
 import Node from "./Node";
 import { DrawerComp } from "./Drawer";
+import { useSelector } from "react-redux";
+import { iAncillarySliceState, iSliceState } from "@/types";
 
 const initialNodes = [
   {
@@ -68,10 +71,6 @@ const PublishZap = () => {
 
     // Updating indeces of exisiting nodes
     const updatedIndexNodes = nodes.map((node) => {
-      // trigger node idx, should not be changed
-      if (node.id === 0) {
-        return node;
-      }
       // Updating id of nodes after newNodeIndex
       if (newNodeIndex <= node.id) {
         return {
@@ -91,43 +90,54 @@ const PublishZap = () => {
     // opening drawer once the node is created
     onEdit(newNodeIndex);
   };
+  const handleDeleteActionNode = (id: number) => {
+    // Handle delete action
+    const confirmation = window.confirm(
+      "Are you sure you want to delete this action?",
+    );
+    if (!confirmation) return;
+    console.log("Delete action", id);
+  };
+
+  const { trigger, actions } = useSelector(
+    (state: iSliceState) => state.ancillarySlice,
+  );
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedNode, setSelectedNode] = useState<any>(null);
+
   const onEdit = (nodeId: number) => {
     setIsDrawerOpen(!isDrawerOpen);
+    const nodes = [trigger, ...actions];
     setSelectedNode(nodes.find((node) => node.id === nodeId));
   };
+
   return (
     <div className="min-h-screen">
       <h1 className="text-2xl font-bold my-4">Publish Zap</h1>
       <div className="mx-auto w-1/4">
-        {nodes.map(({ id, icon, trigger, action }) => {
-          return (
-            <div key={id}>
-              <Node
-                icon={icon}
-                id={id}
-                trigger={trigger ? trigger : undefined}
-                action={action ? action : undefined}
-                onEdit={onEdit}
-              />
-              <div>
-                <span className="block mx-auto h-8 w-1 rounded-full bg-foreground" />
-                <div className="mx-auto w-fit">
-                  <Button
-                    size="icon"
-                    onClick={() => handleAddActionNode(id)}
-                    className="my-1 rounded-full"
-                  >
-                    <FaPlus />
-                  </Button>
-                </div>
-                <span className="block mx-auto h-8 w-1 rounded-full bg-foreground" />
+        {/* Trigger Node */}
+        {trigger && (
+          <Node
+            onEdit={onEdit}
+            trigger={trigger}
+            handleAddActionNode={handleAddActionNode}
+          />
+        )}
+        {/* Action Nodes */}
+        {actions &&
+          actions?.map((action) => {
+            return (
+              <div key={action.id}>
+                <Node
+                  action={action}
+                  onEdit={onEdit}
+                  handleAddActionNode={handleAddActionNode}
+                  handleDeleteActionNode={handleDeleteActionNode}
+                />
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
       <DrawerComp
         isDrawerOpen={isDrawerOpen}
