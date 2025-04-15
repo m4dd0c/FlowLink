@@ -25,16 +25,15 @@ import { TriggerNodeSchema } from "@/lib/schema/schema";
 import { useGetAvailableTriggersQuery } from "@/store/api/ancillary";
 import { useDispatch, useSelector } from "react-redux";
 import { setTrigger } from "@/store/slices/ancillary";
+import { iSliceState } from "@/types";
 
 const TriggerForm = ({
-  node,
   setIsDrawerOpen,
 }: {
-  node: any;
   setIsDrawerOpen: (open: boolean) => void;
 }) => {
   const dispatch = useDispatch();
-  const { trigger } = useSelector((state: any) => state.ancillarySlice);
+  const { trigger } = useSelector((state: iSliceState) => state.ancillarySlice);
 
   const { isFetching, data: availableTriggers } =
     useGetAvailableTriggersQuery("");
@@ -44,7 +43,7 @@ const TriggerForm = ({
     defaultValues: {
       title: trigger?.title || "",
       availableTriggerId: trigger?.availableTriggerId || "",
-      triggerMetadata: "",
+      triggerMetadata: trigger?.metadata || "",
     },
   });
 
@@ -55,7 +54,7 @@ const TriggerForm = ({
           type: "custom",
           message: "Please select a trigger",
         });
-      dispatch(setTrigger(values));
+      dispatch(setTrigger({ ...values, ...trigger }));
       setIsDrawerOpen(false);
     } catch (err: any) {
       console.error(err?.response?.data.message);
