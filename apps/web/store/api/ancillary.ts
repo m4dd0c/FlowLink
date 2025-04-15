@@ -1,4 +1,5 @@
 import { PRIMARY_BE_URL, tagTypes } from "@/lib/constants";
+import { iAncillaryApi, iFlowResponse } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const ancillary = createApi({
@@ -10,12 +11,12 @@ const ancillary = createApi({
   }),
   endpoints: (builder) => ({
     // Get all triggers
-    getAvailableActions: builder.query({
+    getAvailableActions: builder.query<iFlowResponse<iAncillaryApi[]>, null>({
       query: () => "/actions",
       providesTags: [tagTypes.actions],
     }),
     // Get all actions
-    getAvailableTriggers: builder.query({
+    getAvailableTriggers: builder.query<iFlowResponse<iAncillaryApi[]>, null>({
       query: () => "/triggers",
       providesTags: [tagTypes.triggers],
     }),
