@@ -6,8 +6,7 @@ import { LuPlugZap } from "react-icons/lu";
 const initialState: iAncillarySliceState = {
   trigger: {
     id: 0,
-    title: "Trigger",
-    label: "Add a custom trigger label",
+    title: "Add a Custom Trigger Title",
     icon: LuPlugZap,
     availableTriggerId: "",
     triggerMetadata: {},
@@ -15,8 +14,7 @@ const initialState: iAncillarySliceState = {
   actions: [
     {
       id: 1,
-      title: "Action",
-      label: "Add a custom action label",
+      title: "Add a Custom Action Title",
       icon: BsFillLightningChargeFill,
       availableActionId: "",
       actionMetadata: {},
