@@ -53,26 +53,22 @@ const TriggerForm = ({
   });
 
   const onSubmit = async (values: z.infer<typeof ActionNodeSchema>) => {
-    try {
-      if (!values.availableActionId)
-        return form.setError("availableActionId", {
-          type: "custom",
-          message: "Please select an Action",
-        });
-
-      const updatedActions = actions.map((action) => {
-        if (action.id === actionId)
-          return {
-            ...action,
-            ...values,
-          };
-        return action;
+    if (!values.availableActionId)
+      return form.setError("availableActionId", {
+        type: "custom",
+        message: "Please select an Action",
       });
-      dispatch(setActions(updatedActions));
-      setIsDrawerOpen(false);
-    } catch (err: any) {
-      console.error(err?.response?.data.message);
-    }
+
+    const updatedActions = actions.map((action) => {
+      if (action.id === actionId)
+        return {
+          ...action,
+          ...values,
+        };
+      return action;
+    });
+    dispatch(setActions(updatedActions));
+    setIsDrawerOpen(false);
   };
 
   if (isFetching && !actionNode) return <h1>Loading...</h1>;
