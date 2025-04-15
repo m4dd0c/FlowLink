@@ -9,7 +9,7 @@ const initialState: iAncillarySliceState = {
     title: "Add a Custom Trigger Title",
     icon: LuPlugZap,
     availableTriggerId: "",
-    triggerMetadata: {},
+    triggerMetadata: "",
   },
   actions: [
     {
@@ -17,7 +17,7 @@ const initialState: iAncillarySliceState = {
       title: "Add a Custom Action Title",
       icon: BsFillLightningChargeFill,
       availableActionId: "",
-      actionMetadata: {},
+      actionMetadata: "",
     },
   ],
 };
