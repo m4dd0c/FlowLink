@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Form,
   FormControl,
@@ -25,7 +25,7 @@ import { ActionNodeSchema } from "@/lib/schema/schema";
 import { useGetAvailableActionsQuery } from "@/store/api/ancillary";
 import { useDispatch, useSelector } from "react-redux";
 import { setActions } from "@/store/slices/ancillary";
-import { iSliceState } from "@/types";
+import { iAncillarySliceState, iSliceState } from "@/types";
 
 const TriggerForm = ({
   setIsDrawerOpen,
@@ -35,16 +35,20 @@ const TriggerForm = ({
   actionId: number;
 }) => {
   const { isFetching, data: availableActions } =
-    useGetAvailableActionsQuery("");
+    useGetAvailableActionsQuery(null);
   const dispatch = useDispatch();
   const { actions } = useSelector((state: iSliceState) => state.ancillarySlice);
+
+  const [actionNode, setActionNode] = useState<
+    iAncillarySliceState["actions"][number] | undefined
+  >(actions.find((action) => action.id === actionId));
 
   const form = useForm<z.infer<typeof ActionNodeSchema>>({
     resolver: zodResolver(ActionNodeSchema),
     defaultValues: {
-      title: actions[actionId]?.title || "",
-      availableActionId: actions[actionId]?.availableActionId || "",
-      actionMetadata: actions[actionId]?.actionMetadata || "",
+      title: actionNode?.title || "",
+      availableActionId: actionNode?.availableActionId || "",
+      actionMetadata: actionNode?.actionMetadata || "",
     },
   });
 
@@ -55,19 +59,23 @@ const TriggerForm = ({
           type: "custom",
           message: "Please select an Action",
         });
-      dispatch(
-        setActions({
-          ...actions[actionId],
-          ...values,
-        }),
-      );
+
+      const updatedActions = actions.map((action) => {
+        if (action.id === actionId)
+          return {
+            ...action,
+            ...values,
+          };
+        return action;
+      });
+      dispatch(setActions(updatedActions));
       setIsDrawerOpen(false);
     } catch (err: any) {
       console.error(err?.response?.data.message);
     }
   };
 
-  if (isFetching) return <h1>Loading...</h1>;
+  if (isFetching && !actionNode) return <h1>Loading...</h1>;
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
