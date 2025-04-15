@@ -1,41 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { BiLogoGmail } from "react-icons/bi";
-import { RiWebhookLine } from "react-icons/ri";
+import React, { useState } from "react";
 import { BsFillLightningChargeFill } from "react-icons/bs";
-import { SiSolana } from "react-icons/si";
 import Node from "./Node";
 import { DrawerComp } from "./Drawer";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { iSliceState } from "@/types";
-
-const initialNodes = [
-  {
-    id: 0,
-    icon: <RiWebhookLine />,
-    trigger: {
-      title: "Webhook",
-      label: "New Comment on Github",
-    },
-  },
-  {
-    id: 1,
-    icon: <BiLogoGmail />,
-    action: {
-      title: "Gmail",
-      label: "Send Email",
-    },
-  },
-  {
-    id: 2,
-    icon: <SiSolana />,
-    action: {
-      title: "Solana",
-      label: "Send Solana",
-    },
-  },
-];
+import { setActions } from "@/store/slices/ancillary";
 
 //   title: z.string()
 //   availableTriggerId: z.string(),
@@ -49,11 +20,11 @@ const initialNodes = [
 // https://localhost:4001/hooks/catch/:uId/:zapId/
 
 const PublishZap = () => {
-  const [nodes, setNodes] = useState<any[]>([]);
+  const { trigger, actions } = useSelector(
+    (state: iSliceState) => state.ancillarySlice,
+  );
 
-  useEffect(() => {
-    setNodes(initialNodes);
-  }, []);
+  const dispatch = useDispatch();
 
   const handleAddActionNode = (id: number) => {
     const newNodeIndex = id + 1;
@@ -61,15 +32,14 @@ const PublishZap = () => {
     // Creating new action node
     const newNode = {
       id: newNodeIndex,
-      icon: <BsFillLightningChargeFill />,
-      action: {
-        title: "Action",
-        label: "Add New Action",
-      },
+      icon: BsFillLightningChargeFill,
+      title: "New node Action" + newNodeIndex,
+      availableActionId: "",
+      actionMetadata: "",
     };
 
     // Updating indeces of exisiting nodes
-    const updatedIndexNodes = nodes.map((node) => {
+    const updatedIndexNodes = actions.map((node) => {
       // Updating id of nodes after newNodeIndex
       if (newNodeIndex <= node.id) {
         return {
@@ -83,12 +53,11 @@ const PublishZap = () => {
     });
 
     // Appending new node
-    updatedIndexNodes.splice(newNodeIndex, 0, newNode);
-    setNodes(updatedIndexNodes);
-
-    // opening drawer once the node is created
-    onEdit(newNodeIndex);
+    updatedIndexNodes.splice(newNodeIndex - 1, 0, newNode);
+    // Updating Actions[]
+    dispatch(setActions(updatedIndexNodes));
   };
+
   const handleDeleteActionNode = (id: number) => {
     // Handle delete action
     const confirmation = window.confirm(
@@ -97,10 +66,6 @@ const PublishZap = () => {
     if (!confirmation) return;
     console.log("Delete action", id);
   };
-
-  const { trigger, actions } = useSelector(
-    (state: iSliceState) => state.ancillarySlice,
-  );
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedNodeId, setSelectedNodeId] = useState<number | null>(null);
