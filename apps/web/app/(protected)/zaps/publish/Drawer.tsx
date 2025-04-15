@@ -21,9 +21,12 @@ export function DrawerComp({
 }: {
   isDrawerOpen: boolean;
   setIsDrawerOpen: (open: boolean) => void;
-  nodeId: number;
+  nodeId: number | null;
 }) {
+  if (nodeId === null || nodeId === undefined) return null;
+
   const isTrigger = nodeId === 0;
+
   return (
     <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
       <DrawerContent>
