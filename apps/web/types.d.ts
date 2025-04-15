@@ -12,7 +12,6 @@ export interface iAncillarySliceState {
   trigger: {
     id: number;
     title: string;
-    label: string;
     icon: IconType;
     availableTriggerId: string;
     triggerMetadata?: any;
@@ -20,7 +19,6 @@ export interface iAncillarySliceState {
   actions: {
     id: number;
     title: string;
-    label: string;
     icon: IconType;
     availableActionId: string;
     actionMetadata?: any;
@@ -29,4 +27,9 @@ export interface iAncillarySliceState {
 
 export interface iSliceState {
   ancillarySlice: iAncillarySliceState;
+}
+
+export interface iAncillaryApi {
+  id: string;
+  name: string;
 }
