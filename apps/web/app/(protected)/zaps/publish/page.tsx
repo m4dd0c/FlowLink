@@ -1,17 +1,14 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import React, { useEffect, useState } from "react";
 import { BiLogoGmail } from "react-icons/bi";
-import { FaPlus } from "react-icons/fa6";
 import { RiWebhookLine } from "react-icons/ri";
 import { BsFillLightningChargeFill } from "react-icons/bs";
 import { SiSolana } from "react-icons/si";
-import { LuPlugZap } from "react-icons/lu";
 import Node from "./Node";
 import { DrawerComp } from "./Drawer";
 import { useSelector } from "react-redux";
-import { iAncillarySliceState, iSliceState } from "@/types";
+import { iSliceState } from "@/types";
 
 const initialNodes = [
   {
@@ -44,8 +41,10 @@ const initialNodes = [
 //   availableTriggerId: z.string(),
 //   triggerMetadata: z.any().optional(),
 //   actions: [
+//   {
 //       availableActionId: z.string(),
 //       actionMetadata: z.any().optional(),
+//   }
 //   ]
 // https://localhost:4001/hooks/catch/:uId/:zapId/
 
@@ -104,12 +103,15 @@ const PublishZap = () => {
   );
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [selectedNode, setSelectedNode] = useState<any>(null);
+  const [selectedNodeId, setSelectedNodeId] = useState<number | null>(null);
 
   const onEdit = (nodeId: number) => {
-    setIsDrawerOpen(!isDrawerOpen);
-    const nodes = [trigger, ...actions];
-    setSelectedNode(nodes.find((node) => node.id === nodeId));
+    if (nodeId === null || nodeId === undefined) {
+      alert("Please select a node to edit, ERR: unknown nodeId");
+    } else {
+      setIsDrawerOpen(!isDrawerOpen);
+      setSelectedNodeId(nodeId);
+    }
   };
 
   return (
@@ -142,7 +144,7 @@ const PublishZap = () => {
       <DrawerComp
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
-        node={selectedNode}
+        nodeId={selectedNodeId}
       />
     </div>
   );
