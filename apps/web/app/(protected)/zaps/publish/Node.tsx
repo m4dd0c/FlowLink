@@ -1,11 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { iAncillarySliceState, iSliceState } from "@/types";
+import { iAncillarySliceState } from "@/types";
 import { FiEdit2 } from "react-icons/fi";
 import { HiTrash } from "react-icons/hi2";
 import { FaPlus } from "react-icons/fa6";
-import { useSelector } from "react-redux";
 import {
   useGetAvailableActionsQuery,
   useGetAvailableTriggersQuery,
@@ -58,7 +57,7 @@ const Node = ({
         <div className="flex justify-between">
           <div className="flex place-items-center gap-2 text-xs">
             {icon && React.createElement(icon, { className: "size-4" })}
-            <p>{label}</p>
+            <p className="uppercase">{label}</p>
           </div>
           <div className="flex place-items-center gap-1">
             <Button variant="ghost" size="icon" onClick={() => onEdit(id!)}>
