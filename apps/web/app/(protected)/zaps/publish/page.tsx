@@ -2,11 +2,11 @@
 
 import React, { useState } from "react";
 import { BsFillLightningChargeFill } from "react-icons/bs";
-import Node from "./Node";
-import { DrawerComp } from "./Drawer";
 import { useDispatch, useSelector } from "react-redux";
 import { iSliceState } from "@/types";
 import { setActions } from "@/store/slices/ancillary";
+import { DrawerComp } from "@/components/Canvas/Drawer";
+import Node from "@/components/Canvas/Node";
 
 //   title: z.string()
 //   availableTriggerId: z.string(),
