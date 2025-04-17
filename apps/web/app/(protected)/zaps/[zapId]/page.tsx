@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useGetZapQuery } from "@/store/api/zaps";
+import Node from "@/components/Canvas/Node";
+// import Node from "@/components/Canvas/Node";
+// import { DrawerComp } from "@/components/Canvas/Drawer";
 
 const Zap = ({ params }: { params: Promise<{ zapId: string }> }) => {
   const [zapId, setZapId] = useState<string | null>(null);
@@ -19,13 +22,25 @@ const Zap = ({ params }: { params: Promise<{ zapId: string }> }) => {
     if (zapId) refetch();
   }, [zapId, refetch]);
 
-  console.log("data", data?.data);
+  console.log(data);
   if (!zapId || isFetching) return <h1>Loading...</h1>;
 
   return (
-    <div>
-      <h1>Hello world</h1>
-      {JSON.stringify(data?.data)} is the data
+    <div className="min-h-screen">
+      <h1 className="text-2xl font-bold my-4">Publish Zap</h1>
+      <div className="mx-auto w-1/3 max-lg:w-1/2 max-md:w-5/6">
+        {/* Trigger Node */}
+        {data?.data?.trigger && <Node trigger={data?.data?.trigger} />}
+        {/* Action Nodes */}
+        {data?.data?.actions &&
+          data?.data?.actions?.map((action: any, idx: number) => {
+            return (
+              <div key={idx}>
+                <Node action={action} />
+              </div>
+            );
+          })}
+      </div>
     </div>
   );
 };
