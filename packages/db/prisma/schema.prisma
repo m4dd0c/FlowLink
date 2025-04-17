@@ -46,10 +46,10 @@ model Zap {
 }
 
 model ZapRun {
-  id String @id @default(cuid())
-  metadata     Json @default("{}")
-  zapId String @unique
-  zap   Zap    @relation(fields: [zapId], references: [id], onDelete: Cascade)
+  id       String @id @default(cuid())
+  metadata Json   @default("{}")
+  zapId    String @unique
+  zap      Zap    @relation(fields: [zapId], references: [id], onDelete: Cascade)
 
   zapRunOutbox ZapRunOutbox?
 }
@@ -58,7 +58,7 @@ model ZapRunOutbox {
   id String @id @default(cuid())
 
   zapRunId String @unique
-  zapRun   ZapRun    @relation(fields: [zapRunId], references: [id], onDelete: Cascade)
+  zapRun   ZapRun @relation(fields: [zapRunId], references: [id], onDelete: Cascade)
 }
 
 model AvailableTriggers {
@@ -70,11 +70,11 @@ model AvailableTriggers {
 model Trigger {
   id String @id @default(cuid())
 
-  metadata    Json  @default("{}")
+  metadata Json @default("{}")
 
-  title String
+  title              String
   availableTriggerId String
-  type      AvailableTriggers @relation(fields: [availableTriggerId], references: [id])
+  type               AvailableTriggers @relation(fields: [availableTriggerId], references: [id])
 
   zapId String @unique
   zap   Zap    @relation(fields: [zapId], references: [id], onDelete: Cascade)
@@ -89,11 +89,11 @@ model AvailableActions {
 model Action {
   id String @id @default(cuid())
 
-  title String
-  metadata    Json  @default("{}")
+  title    String
+  metadata Json   @default("{}")
 
   availableActionId String
-  type     AvailableActions @relation(fields: [availableActionId], references: [id])
+  type              AvailableActions @relation(fields: [availableActionId], references: [id])
 
   sortingOrder Int @default(0)
 
