@@ -29,7 +29,6 @@ model User {
 
 model Zap {
   id    String @id @default(cuid())
-  title String
 
   trigger   Trigger?
   triggerId String
