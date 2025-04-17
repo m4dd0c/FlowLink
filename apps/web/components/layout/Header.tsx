@@ -5,11 +5,13 @@ import logo from "../../public/logo.png";
 import Link from "next/link";
 import { IoPersonOutline } from "react-icons/io5";
 import { ToggleThemeMode } from "../ui/ToggleThemeMode";
+import { useMeQuery } from "@/store/api/user";
 
 const Header = () => {
-  const auth = false;
+  const { isLoading, data } = useMeQuery(null);
   const [scroll, setScroll] = useState(false);
 
+  console.log(data);
   useEffect(() => {
     const handleScroll = () => {
       setScroll(window.scrollY > 40);
@@ -35,7 +37,7 @@ const Header = () => {
         </div>
       </Link>
       <div className="flex gap-4 px-8 max-md:px-4">
-        {auth ? (
+        {!isLoading && data?.data ? (
           <ul className="flex items-center gap-4 font-semibold">
             <li className="hover:bg-foreground/10 px-3 py-1 rounded-sm">
               <Link href="/zaps/publish">Publish New Zap</Link>
