@@ -19,8 +19,8 @@ const Node = ({
 }: {
   action?: iAncillarySliceState["actions"][number];
   trigger?: iAncillarySliceState["trigger"];
-  onEdit: (nodeId: number) => void;
-  handleAddActionNode: (nodeId: number) => void;
+  onEdit?: (nodeId: number) => void;
+  handleAddActionNode?: (nodeId: number) => void;
   handleDeleteActionNode?: (nodeId: number) => void;
 }) => {
   const title = action ? action?.title : trigger?.title;
@@ -60,7 +60,7 @@ const Node = ({
             <p className="uppercase">{label}</p>
           </div>
           <div className="flex place-items-center gap-1">
-            <Button variant="ghost" size="icon" onClick={() => onEdit(id!)}>
+            <Button variant="ghost" size="icon" onClick={() => onEdit?.(id!)}>
               <FiEdit2 className="cursor-pointer size-4" />
             </Button>
             {action && (
@@ -84,15 +84,17 @@ const Node = ({
       {/* Node tail */}
       <div>
         <span className="block mx-auto h-8 w-1 rounded-full bg-foreground" />
-        <div className="mx-auto w-fit">
-          <Button
-            size="icon"
-            onClick={() => handleAddActionNode(id!)}
-            className="my-1 rounded-full"
-          >
-            <FaPlus />
-          </Button>
-        </div>
+        {handleAddActionNode && (
+          <div className="mx-auto w-fit">
+            <Button
+              size="icon"
+              onClick={() => handleAddActionNode?.(id!)}
+              className="my-1 rounded-full"
+            >
+              <FaPlus />
+            </Button>
+          </div>
+        )}
         <span className="block mx-auto h-8 w-1 rounded-full bg-foreground" />
       </div>
     </>
