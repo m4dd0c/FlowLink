@@ -20,15 +20,35 @@ const Zap = ({ params }: { params: Promise<{ zapId: string }> }) => {
 
   // Open Detail Drawer
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [node, setNode] = useState<any | null>(null);
+  const [node, setNode] = useState<Record<string, any> | null>(null);
 
-  const onViewDetails = (node: any) => {
-    if (!node) {
-      alert("Please select a node to view Details of, ERR: unknown Node");
+  const onViewDetails = (nodeId: string) => {
+    if (!nodeId) {
+      alert("Please select a node to view Details of, ERR: unknown NodeId");
     } else {
-      console.log(node);
       setIsDrawerOpen(!isDrawerOpen);
-      setNode(node);
+      // const selectedNode = [data?.data?.trigger, ...data?.data?.actions];
+      if (nodeId === data?.data?.trigger?.id)
+        setNode({
+          title: data?.data?.trigger?.title,
+          label: data?.data?.trigger?.type?.name,
+          metadata: data?.data?.trigger?.metadata,
+          zapId: data?.data?.id,
+          type: "Trigger",
+        });
+      else {
+        data?.data?.actions?.map((action: any) => {
+          if (action.id === nodeId) {
+            setNode({
+              title: action.title,
+              label: action.type.name,
+              metadata: action.metadata,
+              zapId: data?.data?.id,
+              type: "Action",
+            });
+          }
+        });
+      }
     }
   };
 
