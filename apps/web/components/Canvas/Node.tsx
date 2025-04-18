@@ -16,12 +16,14 @@ const Node = ({
   action,
   trigger,
   onEdit,
+  onViewDetails,
   handleAddActionNode,
   handleDeleteActionNode,
 }: {
   action?: iAncillarySliceState["actions"][number];
   trigger?: iAncillarySliceState["trigger"];
   onEdit?: (nodeId: number) => void;
+  onViewDetails?: (node: any) => void;
   handleAddActionNode?: (nodeId: number) => void;
   handleDeleteActionNode?: (nodeId: number) => void;
 }) => {
@@ -72,7 +74,6 @@ const Node = ({
 
   if (isActionsFetching || isTriggerFetching) return <h1>Loading...</h1>;
 
-  const viewDetails = () => {};
   return (
     <>
       <div className="ring-2 rounded-lg px-4 py-2">
@@ -92,14 +93,16 @@ const Node = ({
                 <FiEdit2 className="cursor-pointer size-4" />
               </Button>
             ) : (
-              <Button
-                variant="ghost"
-                title="View Details"
-                size="icon"
-                onClick={() => viewDetails()}
-              >
-                <FaRegEye className="cursor-pointer size-4" />
-              </Button>
+              onViewDetails && (
+                <Button
+                  variant="ghost"
+                  title="View Details"
+                  size="icon"
+                  onClick={() => onViewDetails(trigger ?? action)}
+                >
+                  <FaRegEye className="cursor-pointer size-4" />
+                </Button>
+              )
             )}
             {isPublishCanvasPath && handleDeleteActionNode && action && (
               <Button
