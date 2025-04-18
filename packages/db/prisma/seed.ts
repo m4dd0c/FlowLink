@@ -106,6 +106,8 @@ const main = async () => {
       data: seedData.zap,
     });
 
+    console.log("\nZap records seeded!");
+
     await prisma.action.createMany({
       data: seedData.actions,
     });
@@ -115,8 +117,6 @@ const main = async () => {
     });
 
     console.log("\nTriggers & Actions records seeded!");
-
-    console.log("\nZap records seeded!");
   });
 };
 
