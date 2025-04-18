@@ -1,4 +1,6 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 import {
   FaFacebook,
@@ -10,8 +12,12 @@ import {
 } from "react-icons/fa6";
 
 const Footer = () => {
+  const pathname = usePathname();
+  const isZapsCanvasRoute =
+    pathname.startsWith("/zaps") && !pathname.startsWith("/zaps/manage");
+
   return (
-    <div className="px-8 max-md:px-4 py-4">
+    <div className={`px-8 max-md:px-4 py-4 ${isZapsCanvasRoute && "hidden"}`}>
       <div>
         <h1 className="text-9xl font-extrabold text-foreground/10 text-center select-none my-24 transition-colors duration-[5000ms] hover:text-foreground/90">
           FlowLink
