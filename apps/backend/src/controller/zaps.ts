@@ -31,10 +31,10 @@ export const createZap = catchAsync(async (req, res) => {
     const zap = await tx.zap.create({
       data: {
         userId: user.user.id,
-        title,
         triggerId: "",
         actions: {
           create: actions.map((action, idx) => ({
+            title: action.title,
             availableActionId: action.availableActionId,
             sortingOrder: idx,
             metadata: action.actionMetadata,
@@ -44,6 +44,7 @@ export const createZap = catchAsync(async (req, res) => {
     });
     const trigger = await tx.trigger.create({
       data: {
+        title,
         availableTriggerId: availableTriggerId,
         metadata: triggerMetadata,
         zapId: zap.id,
