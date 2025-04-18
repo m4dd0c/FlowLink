@@ -42,15 +42,14 @@ const NodeDetailsDrawer = ({
   onOpenChange: (open: boolean) => void;
   node: any;
 }) => {
-  const nodeType = node?.availableTriggerId ? "Trigger" : "Action";
   return (
     <Drawer onOpenChange={onOpenChange} open={open}>
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
-            <DrawerTitle>{nodeType} Details</DrawerTitle>
+            <DrawerTitle>{node?.type} Details</DrawerTitle>
             <DrawerDescription>
-              See details about your {nodeType}
+              See details about your {node?.type}
             </DrawerDescription>
           </DrawerHeader>
           <DetailsCard node={node} />
