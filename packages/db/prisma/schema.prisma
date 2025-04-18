@@ -69,9 +69,9 @@ model AvailableTriggers {
 model Trigger {
   id String @id @default(cuid())
 
+  title              String @default("Untitled Trigger")
   metadata Json @default("{}")
 
-  title              String
   availableTriggerId String
   type               AvailableTriggers @relation(fields: [availableTriggerId], references: [id])
 
@@ -88,7 +88,7 @@ model AvailableActions {
 model Action {
   id String @id @default(cuid())
 
-  title    String
+  title    String @default("Untitled Action")
   metadata Json   @default("{}")
 
   availableActionId String
