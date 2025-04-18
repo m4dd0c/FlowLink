@@ -29,10 +29,9 @@ const ManageZap = () => {
     try {
       await trigger({ zapId }).unwrap();
     } catch (error) {
-      console.error(JSON.stringify(error));
+      console.error(error);
     }
   };
-  console.log("adadf", data);
   if (isFetching) return <h1>Loading...</h1>;
   return (
     <Table>
