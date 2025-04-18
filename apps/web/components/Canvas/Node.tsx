@@ -76,14 +76,13 @@ const Node = ({
         </div>
         <div>
           <p>
-            <strong>{id! + 1}.&nbsp;&nbsp;</strong>
             <span>{title}</span>
           </p>
         </div>
       </div>
       {/* Node tail */}
       <div>
-        <span className="block mx-auto h-8 w-1 rounded-full bg-foreground" />
+        <span className="block mx-auto h-8 w-1 bg-foreground" />
         {handleAddActionNode && (
           <div className="mx-auto w-fit">
             <Button
@@ -95,7 +94,7 @@ const Node = ({
             </Button>
           </div>
         )}
-        <span className="block mx-auto h-8 w-1 rounded-full bg-foreground" />
+        <span className="block mx-auto h-8 w-1 bg-foreground/50" />
       </div>
     </>
   );
