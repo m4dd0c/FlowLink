@@ -8,15 +8,6 @@ import { setActions } from "@/store/slices/ancillary";
 import { DrawerComp } from "@/components/Canvas/Drawer";
 import Node from "@/components/Canvas/Node";
 
-//   title: z.string()
-//   availableTriggerId: z.string(),
-//   triggerMetadata: z.any().optional(),
-//   actions: [
-//   {
-//       availableActionId: z.string(),
-//       actionMetadata: z.any().optional(),
-//   }
-//   ]
 // https://localhost:4001/hooks/catch/:uId/:zapId/
 
 const PublishZap = () => {
@@ -93,24 +84,6 @@ const PublishZap = () => {
     }
   };
 
-  // const ZapCreateSchema = z.object({
-  //   title: z
-  //     .string()
-  //     .min(3, "Title must contain at least 3 characters.")
-  //     .max(40, "Title must contain at most 40 characters."),
-  //   availableTriggerId: z.string(),
-  //   triggerMetadata: z.any().optional(),
-  //   actions: z.array(
-  //     z.object({
-  //       title: z
-  //         .string()
-  //         .min(3, "Title must contain at least 3 characters.")
-  //         .max(40, "Title must contain at most 40 characters."),
-  //       availableActionId: z.string(),
-  //       actionMetadata: z.any().optional(),
-  //     }),
-  //   ),
-  // });
   return (
     <div className="min-h-screen">
       <div className="mx-auto w-1/3 max-lg:w-1/2 max-md:w-5/6">
