@@ -53,6 +53,6 @@ export const {
   useMeQuery,
   useSignupMutation,
   useLoginMutation,
-  useLogoutQuery,
+  useLazyLogoutQuery,
 } = user;
 export default user;
