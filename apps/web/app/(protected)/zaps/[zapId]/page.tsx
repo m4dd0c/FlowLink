@@ -27,7 +27,10 @@ const Zap = ({ params }: { params: Promise<{ zapId: string }> }) => {
       alert("Please select a node to view Details of, ERR: unknown NodeId");
     } else {
       setIsDrawerOpen(!isDrawerOpen);
-      // const selectedNode = [data?.data?.trigger, ...data?.data?.actions];
+
+      // Creating personalized node variant data for the View Details Drawer
+      // Finding the node in the zap data
+      // If the nodeId is equal to the trigger id, then it's a trigger node
       if (nodeId === data?.data?.trigger?.id)
         setNode({
           title: data?.data?.trigger?.title,
@@ -37,6 +40,8 @@ const Zap = ({ params }: { params: Promise<{ zapId: string }> }) => {
           type: "Trigger",
         });
       else {
+        // If the nodeId is not equal to the trigger id, then it's an action node
+        // Loop through the actions to find the node and set the node state
         data?.data?.actions?.map((action: any) => {
           if (action.id === nodeId) {
             setNode({
