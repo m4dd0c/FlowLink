@@ -10,6 +10,28 @@ import {
   DrawerTitle,
 } from "../ui/drawer";
 import { Button } from "../ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
+
+const DetailsCard = ({ node }: { node: any }) => {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>{node.label}</CardTitle>
+        <CardDescription>{node.title}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <h1 className="font-bold">Metadata</h1>
+        <p className="text-muted-foreground">{node.metadata}</p>
+      </CardContent>
+    </Card>
+  );
+};
 
 const NodeDetailsDrawer = ({
   open,
@@ -20,7 +42,7 @@ const NodeDetailsDrawer = ({
   onOpenChange: (open: boolean) => void;
   node: any;
 }) => {
-  const nodeType = node.availableTriggerId ? "Trigger" : "Action";
+  const nodeType = node?.availableTriggerId ? "Trigger" : "Action";
   return (
     <Drawer onOpenChange={onOpenChange} open={open}>
       <DrawerContent>
@@ -31,9 +53,7 @@ const NodeDetailsDrawer = ({
               See details about your {nodeType}
             </DrawerDescription>
           </DrawerHeader>
-          <div className="p-4 pb-0">
-            {nodeType === "Trigger" ? <div></div> : <div></div>}
-          </div>
+          <DetailsCard node={node} />
           <DrawerFooter>
             <DrawerClose asChild>
               <Button variant="outline">Cancel</Button>
