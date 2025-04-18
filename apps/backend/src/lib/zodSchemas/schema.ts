@@ -16,14 +16,18 @@ const ZapIdSchema = z.object({
 });
 
 const ZapCreateSchema = z.object({
+  availableTriggerId: z.string(),
+  triggerMetadata: z.any().optional(),
   title: z
     .string()
     .min(3, "Title must contain at least 3 characters.")
     .max(40, "Title must contain at most 40 characters."),
-  availableTriggerId: z.string(),
-  triggerMetadata: z.any().optional(),
   actions: z.array(
     z.object({
+      title: z
+        .string()
+        .min(3, "Title must contain at least 3 characters.")
+        .max(40, "Title must contain at most 40 characters."),
       availableActionId: z.string(),
       actionMetadata: z.any().optional(),
     }),
