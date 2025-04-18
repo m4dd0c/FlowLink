@@ -75,10 +75,10 @@ export const getZaps = catchAsync(async (req, res) => {
     where: { userId: user.user.id },
     include: {
       trigger: {
-        select: { type: true },
+        select: { type: true, title: true },
       },
       actions: {
-        select: { type: true },
+        select: { type: true, title: true },
       },
     },
   });
@@ -108,12 +108,8 @@ export const getSingleZap = catchAsync(async (req, res) => {
   const zap = await prisma.zap.findFirst({
     where: { id: zapId, userId: user.user.id },
     include: {
-      trigger: {
-        select: { type: true, metadata: true, availableTriggerId: true },
-      },
-      actions: {
-        select: { type: true, metadata: true, availableActionId: true },
-      },
+      trigger: true,
+      actions: true,
     },
   });
 
