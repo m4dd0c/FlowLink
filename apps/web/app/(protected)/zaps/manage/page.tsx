@@ -20,7 +20,6 @@ const ManageZap = () => {
   const { isFetching, data } = useGetAllZapsQuery(null);
   const [trigger] = useDeleteZapMutation();
 
-  console.log(data);
   const handleZapDelete = async (zapId?: string) => {
     if (!zapId) return alert("Please provide a zapId");
     const confirm = window.confirm(
@@ -33,6 +32,7 @@ const ManageZap = () => {
       console.error(JSON.stringify(error));
     }
   };
+  console.log("adadf", data);
   if (isFetching) return <h1>Loading...</h1>;
   return (
     <Table>
@@ -50,9 +50,9 @@ const ManageZap = () => {
         {data?.data.map((zap: tUnknownObj, idx: number) => (
           <TableRow key={zap?.id}>
             <TableCell className="font-medium">{idx + 1}</TableCell>
-            <TableCell>{zap?.title}</TableCell>
+            <TableCell>{zap?.trigger?.title ?? "Untitled Zap"}</TableCell>
             <TableCell>{zap?.trigger?.type?.name}</TableCell>
-            <TableCell>{zap?.actions?.length}</TableCell>
+            <TableCell>Incl. {zap?.actions?.length} Actions</TableCell>
             <TableCell className="flex justify-end items-center gap-2">
               <Button
                 variant="outline"
