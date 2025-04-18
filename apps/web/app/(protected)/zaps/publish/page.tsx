@@ -93,9 +93,26 @@ const PublishZap = () => {
     }
   };
 
+  // const ZapCreateSchema = z.object({
+  //   title: z
+  //     .string()
+  //     .min(3, "Title must contain at least 3 characters.")
+  //     .max(40, "Title must contain at most 40 characters."),
+  //   availableTriggerId: z.string(),
+  //   triggerMetadata: z.any().optional(),
+  //   actions: z.array(
+  //     z.object({
+  //       title: z
+  //         .string()
+  //         .min(3, "Title must contain at least 3 characters.")
+  //         .max(40, "Title must contain at most 40 characters."),
+  //       availableActionId: z.string(),
+  //       actionMetadata: z.any().optional(),
+  //     }),
+  //   ),
+  // });
   return (
     <div className="min-h-screen">
-      <h1 className="text-2xl font-bold my-4">Publish Zap</h1>
       <div className="mx-auto w-1/3 max-lg:w-1/2 max-md:w-5/6">
         {/* Trigger Node */}
         {trigger && (
