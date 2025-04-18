@@ -1,12 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
+import { usePathname, useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 import { iSliceState } from "@/types";
+import { ZapCreateSchema } from "@/lib/schema/schema";
+import { useCreateZapMutation } from "@/store/api/zaps";
 
 const CanvasHeader = () => {
   const [scroll, setScroll] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,15 +20,39 @@ const CanvasHeader = () => {
   }, []);
 
   const pathname = usePathname();
-  const publishZap = () => {};
 
-  // const dispatch = useDispatch();
   const { trigger, actions } = useSelector(
     (state: iSliceState) => state.ancillarySlice,
   );
-  useEffect(() => {
-    if (trigger && actions) console.log(trigger, actions);
-  }, [trigger, actions]);
+
+  const [createZapMutation] = useCreateZapMutation();
+  const publishZap = async () => {
+    if (!trigger || !actions)
+      return console.log("Please add actions and trigger to zap");
+
+    // Forming zap object to be sent to the server
+    const zap = {
+      title: trigger.title,
+      availableTriggerId: trigger.availableTriggerId,
+      triggerMetadata: trigger.triggerMetadata,
+      actions: actions.map((action) => ({
+        title: action.title,
+        actionMetadata: action.actionMetadata,
+        availableActionId: action.availableActionId,
+      })),
+    };
+
+    // Validate zap
+    const validation = ZapCreateSchema.safeParse(zap);
+    if (!validation.success) {
+      return console.error("Invalid zap", validation.error.format());
+    }
+
+    // Create zap
+    await createZapMutation(validation.data);
+    router.push("/zaps/manage");
+  };
+
   return (
     <div
       className={`flex transition-all duration-300 fixed top-0 py-2 inset-x-0 z-50 justify-between items-center py-1 px-4 ${scroll && "bg-background/80 backdrop-blur-md"}`}
