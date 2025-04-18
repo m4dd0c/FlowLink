@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useGetZapQuery } from "@/store/api/zaps";
 import Node from "@/components/Canvas/Node";
-// import Node from "@/components/Canvas/Node";
 // import { DrawerComp } from "@/components/Canvas/Drawer";
 
 const Zap = ({ params }: { params: Promise<{ zapId: string }> }) => {
@@ -27,7 +26,6 @@ const Zap = ({ params }: { params: Promise<{ zapId: string }> }) => {
 
   return (
     <div className="min-h-screen">
-      <h1 className="text-2xl font-bold my-4">Publish Zap</h1>
       <div className="mx-auto w-1/3 max-lg:w-1/2 max-md:w-5/6">
         {/* Trigger Node */}
         {data?.data?.trigger && <Node trigger={data?.data?.trigger} />}
