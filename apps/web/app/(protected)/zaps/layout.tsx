@@ -1,4 +1,4 @@
-import { CanvasHeader } from "@/components/layout/Header";
+import CanvasHeader from "@/components/layout/CanvasHeader";
 import React from "react";
 
 export default function ZapsLayout({
