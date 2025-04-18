@@ -23,7 +23,7 @@ const Node = ({
   action?: iAncillarySliceState["actions"][number];
   trigger?: iAncillarySliceState["trigger"];
   onEdit?: (nodeId: number) => void;
-  onViewDetails?: (node: any) => void;
+  onViewDetails?: (nodeId: string) => void;
   handleAddActionNode?: (nodeId: number) => void;
   handleDeleteActionNode?: (nodeId: number) => void;
 }) => {
@@ -98,7 +98,7 @@ const Node = ({
                   variant="ghost"
                   title="View Details"
                   size="icon"
-                  onClick={() => onViewDetails(trigger ?? action)}
+                  onClick={() => onViewDetails(id!.toString())}
                 >
                   <FaRegEye className="cursor-pointer size-4" />
                 </Button>
