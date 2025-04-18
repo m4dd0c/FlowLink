@@ -48,9 +48,13 @@ const CanvasHeader = () => {
       return console.error("Invalid zap", validation.error.format());
     }
 
-    // Create zap
-    await createZapMutation(validation.data);
-    router.push("/zaps/manage");
+    // Create zaps
+    try {
+      await createZapMutation(validation.data);
+      router.push("/zaps/manage");
+    } catch (error) {
+      console.error("Error creating zap", error);
+    }
   };
 
   return (
