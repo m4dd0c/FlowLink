@@ -101,21 +101,23 @@ const main = async () => {
 
   console.log("\nAvailableTriggers & AvailableActions records seeded!");
 
-  await prisma.action.createMany({
-    data: seedData.actions,
+  await prisma.$transaction(async (tx) => {
+    await prisma.zap.createMany({
+      data: seedData.zap,
+    });
+
+    await prisma.action.createMany({
+      data: seedData.actions,
+    });
+
+    await prisma.trigger.createMany({
+      data: seedData.trigger,
+    });
+
+    console.log("\nTriggers & Actions records seeded!");
+
+    console.log("\nZap records seeded!");
   });
-
-  await prisma.trigger.createMany({
-    data: seedData.trigger,
-  });
-
-  console.log("\nTriggers & Actions records seeded!");
-
-  await prisma.zap.createMany({
-    data: seedData.zap,
-  });
-
-  console.log("\nZap records seeded!");
 };
 
 main();
