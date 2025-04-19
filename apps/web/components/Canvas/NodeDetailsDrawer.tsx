@@ -17,6 +17,9 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import { Label } from "../ui/label";
+import { Input } from "../ui/Input";
+import { WEBHOOK_BE_URL } from "@/lib/constants";
 
 const DetailsCard = ({ node }: { node: any }) => {
   return (
@@ -28,6 +31,11 @@ const DetailsCard = ({ node }: { node: any }) => {
       <CardContent>
         <h1 className="font-bold">Metadata</h1>
         <p className="text-muted-foreground">{node.metadata}</p>
+        <Label htmlFor="url"></Label>
+        <Input
+          name="url"
+          value={`${WEBHOOK_BE_URL}/hooks/catch/${node?.userId}/${node?.zapId}`}
+        />
       </CardContent>
     </Card>
   );
