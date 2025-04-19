@@ -59,7 +59,7 @@ const CanvasHeader = () => {
 
   return (
     <div
-      className={`flex transition-all duration-300 fixed top-0 inset-x-0 z-50 justify-between items-center py-1 px-4 ${scroll && "bg-background/80 backdrop-blur-md"}`}
+      className={`flex transition-all duration-300 fixed top-0 inset-x-0 z-50 justify-between items-center py-3 px-4 ${scroll && "bg-background/80 backdrop-blur-md"}`}
     >
       <Link href={"/"} className="flex items-center gap-2">
         <div className="flex items-center justify-center gap-2">
@@ -78,9 +78,14 @@ const CanvasHeader = () => {
             Publish
           </button>
         ) : (
-          <button className="bg-orange-500 rounded-full px-3 py-1">
-            <Link href="/zaps/publish">New Zap </Link>
-          </button>
+          <div className="flex place-items-center gap-3">
+            <button className="hover:bg-foreground/10 text-orange-500 px-3 py-1 rounded-sm">
+              <Link href="/zaps/manage">Manage Zaps</Link>
+            </button>
+            <button className="bg-orange-500 rounded-full px-3 py-1">
+              <Link href="/zaps/publish">New Zap </Link>
+            </button>
+          </div>
         )}
       </div>
     </div>
