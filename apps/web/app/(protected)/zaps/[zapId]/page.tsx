@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useGetZapQuery } from "@/store/api/zaps";
 import Node from "@/components/Canvas/Node";
 import NodeDetailsDrawer from "@/components/Canvas/NodeDetailsDrawer";
+import { useMeQuery } from "@/store/api/user";
 
 const Zap = ({ params }: { params: Promise<{ zapId: string }> }) => {
   // Getting slug
@@ -13,10 +14,20 @@ const Zap = ({ params }: { params: Promise<{ zapId: string }> }) => {
   }, [params]);
 
   // Fetching Single Zap
-  const { isFetching, refetch, data } = useGetZapQuery(
-    { zapId: zapId || "" },
-    { skip: !zapId },
-  );
+  const {
+    isFetching: isZapFetching,
+    refetch,
+    data,
+    error: zapError,
+    isError: isZapError,
+  } = useGetZapQuery({ zapId: zapId || "" }, { skip: !zapId });
+
+  const {
+    data: user,
+    isFetching: isUserFetching,
+    error: userError,
+    isError: isUserError,
+  } = useMeQuery(null);
 
   // Open Detail Drawer
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -38,6 +49,7 @@ const Zap = ({ params }: { params: Promise<{ zapId: string }> }) => {
           metadata: data?.data?.trigger?.metadata,
           zapId: data?.data?.id,
           type: "Trigger",
+          userId: user?.data?.id,
         });
       else {
         // If the nodeId is not equal to the trigger id, then it's an action node
@@ -62,7 +74,13 @@ const Zap = ({ params }: { params: Promise<{ zapId: string }> }) => {
     if (zapId) refetch();
   }, [zapId, refetch]);
 
-  if (!zapId || isFetching) return <h1>Loading...</h1>;
+  // Error handling
+  useEffect(() => {
+    if (isZapError) console.error(zapError);
+    if (isUserError) console.error(userError);
+  }, [isUserError, isZapError, userError, zapError]);
+
+  if (!zapId || isUserFetching || isZapFetching) return <h1>Loading...</h1>;
 
   return (
     <div className="min-h-screen">
