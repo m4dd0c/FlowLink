@@ -19,8 +19,13 @@ const NodeDetailsDrawer = ({
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  node: Record<string, string>;
+  node: Record<string, string> | null;
 }) => {
+  // Closing the drawer, If Node is null
+  if (!node) {
+    onOpenChange(!open);
+    return null;
+  }
   return (
     <Drawer onOpenChange={onOpenChange} open={open}>
       <DrawerContent>
