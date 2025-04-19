@@ -9,6 +9,7 @@ import { useCreateZapMutation } from "@/store/api/zaps";
 
 const CanvasHeader = () => {
   const [scroll, setScroll] = useState(false);
+  const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
@@ -18,8 +19,6 @@ const CanvasHeader = () => {
     document.addEventListener("scroll", handleScroll);
     return () => document.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const pathname = usePathname();
 
   const { trigger, actions } = useSelector(
     (state: iSliceState) => state.ancillarySlice,
@@ -50,8 +49,9 @@ const CanvasHeader = () => {
 
     // Create zaps
     try {
-      await createZapMutation(validation.data);
-      router.push("/zaps/manage");
+      const { data: zapId } = await createZapMutation(validation.data).unwrap();
+      // TODO: show popup success
+      router.push(`/zaps/${zapId}`);
     } catch (error) {
       console.error("Error creating zap", error);
     }
@@ -59,7 +59,7 @@ const CanvasHeader = () => {
 
   return (
     <div
-      className={`flex transition-all duration-300 fixed top-0 py-2 inset-x-0 z-50 justify-between items-center py-1 px-4 ${scroll && "bg-background/80 backdrop-blur-md"}`}
+      className={`flex transition-all duration-300 fixed top-0 inset-x-0 z-50 justify-between items-center py-1 px-4 ${scroll && "bg-background/80 backdrop-blur-md"}`}
     >
       <Link href={"/"} className="flex items-center gap-2">
         <div className="flex items-center justify-center gap-2">
