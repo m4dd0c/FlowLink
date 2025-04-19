@@ -31,7 +31,7 @@ const Zap = ({ params }: { params: Promise<{ zapId: string }> }) => {
 
   // Open Detail Drawer
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [node, setNode] = useState<Record<string, any> | null>(null);
+  const [node, setNode] = useState<Record<string, string> | null>(null);
 
   const onViewDetails = (nodeId: string) => {
     if (!nodeId) {
