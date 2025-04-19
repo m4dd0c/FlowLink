@@ -58,7 +58,7 @@ const Header = () => {
             <li className="hover:bg-foreground/10 px-2 py-1 rounded-sm">
               <Link href="/log-in">Log in</Link>
             </li>
-            <li className="bg-orange-500 rounded-full px-3 py-1">
+            <li className="bg-orange-500 rounded-full px-3 py-1 text-white">
               <Link href="/sign-up">Sign up</Link>
             </li>
           </ul>
