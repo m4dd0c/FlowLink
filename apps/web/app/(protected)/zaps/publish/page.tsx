@@ -8,8 +8,6 @@ import { setActions } from "@/store/slices/ancillary";
 import { DrawerComp } from "@/components/Canvas/Drawer";
 import Node from "@/components/Canvas/Node";
 
-// https://localhost:4001/hooks/catch/:uId/:zapId/
-
 const PublishZap = () => {
   const { trigger, actions } = useSelector(
     (state: iSliceState) => state.ancillarySlice,
