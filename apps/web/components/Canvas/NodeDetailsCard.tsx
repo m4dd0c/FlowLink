@@ -39,17 +39,27 @@ const NodeDetailsCard = ({ node }: { node: Record<string, string> }) => {
       </CardHeader>
       <CardContent className="space-y-4">
         <Label htmlFor="url">Catch Hook URL</Label>
-        <div className="flex place-items-center gap-1">
-          <Input disabled className="border-green-500" name="url" value={url} />
-          <Button
-            variant="ghost"
-            onClick={() => copyToClipboard(url)}
-            size="icon"
-            className="cursor-pointer transition-all duration-300"
-            title="Copy URL"
-          >
-            {icon}
-          </Button>
+        <div>
+          <div className="flex place-items-center gap-1">
+            <Input
+              disabled
+              className="border-green-500"
+              name="url"
+              value={url}
+            />
+            <Button
+              variant="ghost"
+              onClick={() => copyToClipboard(url)}
+              size="icon"
+              className="cursor-pointer transition-all duration-300"
+              title="Copy URL"
+            >
+              {icon}
+            </Button>
+          </div>
+          <small className="text-muted-foreground">
+            Use above URL as Webhook URL
+          </small>
         </div>
         <h1 className="font-bold">Metadata</h1>
         <p className="text-muted-foreground">{node.metadata || "N/A"}</p>
