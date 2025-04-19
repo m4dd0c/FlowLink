@@ -84,7 +84,7 @@ const CanvasHeader = () => {
             <button className="hover:bg-foreground/10 text-orange-500 px-3 py-1 rounded-sm">
               <Link href="/zaps/manage">Manage Zaps</Link>
             </button>
-            <button className="bg-orange-500 rounded-full px-3 py-1">
+            <button className="bg-orange-500 rounded-full px-3 py-1 text-white">
               <Link href="/zaps/publish">New Zap </Link>
             </button>
           </div>
