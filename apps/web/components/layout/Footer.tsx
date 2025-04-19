@@ -52,9 +52,6 @@ const Footer = () => {
           <li className="cursor-pointer hover:underline">Platform</li>
           <li className="cursor-pointer hover:underline">Press</li>
           <li className="cursor-pointer hover:underline">Jobs</li>
-          <li className="cursor-pointer hover:underline">Enterprise</li>
-          <li className="cursor-pointer hover:underline">Templates</li>{" "}
-          <li className="cursor-pointer hover:underline">App Integrations</li>
         </ul>
       </div>
       <div className="flex items-center gap-2 justify-between  py-5">
