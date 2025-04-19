@@ -19,7 +19,7 @@ const NodeDetailsDrawer = ({
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  node: any;
+  node: Record<string, string>;
 }) => {
   return (
     <Drawer onOpenChange={onOpenChange} open={open}>
