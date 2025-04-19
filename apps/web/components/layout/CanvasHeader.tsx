@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import { iSliceState } from "@/types";
 import { ZapCreateSchema } from "@/lib/schema/schema";
 import { useCreateZapMutation } from "@/store/api/zaps";
+import { IoPersonOutline } from "react-icons/io5";
+import { ToggleThemeMode } from "../ui/ToggleThemeMode";
 
 const CanvasHeader = () => {
   const [scroll, setScroll] = useState(false);
@@ -73,7 +75,7 @@ const CanvasHeader = () => {
         {pathname.startsWith("/zaps/publish") ? (
           <button
             onClick={publishZap}
-            className="bg-orange-500 rounded-full px-3 py-1"
+            className="bg-orange-500 rounded-full px-3 py-1 text-white"
           >
             Publish
           </button>
@@ -87,6 +89,13 @@ const CanvasHeader = () => {
             </button>
           </div>
         )}
+        <button className="bg-foreground/10 hover:bg-foreground/20 p-2 rounded-full">
+          <Link href="/me">
+            <IoPersonOutline />
+          </Link>
+        </button>
+
+        <ToggleThemeMode />
       </div>
     </div>
   );
