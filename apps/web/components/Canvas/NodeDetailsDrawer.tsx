@@ -24,7 +24,7 @@ const NodeDetailsDrawer = ({
   return (
     <Drawer onOpenChange={onOpenChange} open={open}>
       <DrawerContent>
-        <div className="mx-auto w-full max-w-sm">
+        <div className="mx-auto w-1/2">
           <DrawerHeader>
             <DrawerTitle>{node?.type} Details</DrawerTitle>
             <DrawerDescription>
