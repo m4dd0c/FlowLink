@@ -2,22 +2,18 @@
 import React, { useEffect } from "react";
 import { useLazyLogoutQuery, useMeQuery } from "@/store/api/user";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/Input";
+import { Label } from "@/components/ui/label";
 
 const Page = () => {
-  const { data, isFetching, isError } = useMeQuery(null);
+  const { data: user, isFetching, isError } = useMeQuery(null);
 
-  const [name, setName] = React.useState<string | null>(null);
   useEffect(() => {
     if (isError) {
       console.error("Error fetching user data");
     }
   }, [isError]);
 
-  useEffect(() => {
-    if (data?.data) {
-      setName(data.data.name);
-    }
-  }, [data?.data]);
   const [trigger] = useLazyLogoutQuery();
   const logout = () => {
     trigger(null);
@@ -25,11 +21,34 @@ const Page = () => {
 
   if (isFetching) return <div>Loading...</div>;
   return (
-    <div className="h-screen">
-      <div className="container mx-auto">
-        Hello, I&apos;m {name} <br />
-        <br />
-        {data?.data && <Button onClick={logout}>Logout</Button>}
+    <div className="h-screen mt-24">
+      <div className="container mx-auto space-y-4">
+        <h1 className="text-7xl font-bold uppercase">
+          Hello, {user?.data?.name}
+        </h1>
+        <div className="space-y-2 w-1/4">
+          <Label htmlFor="name">&nbsp;Full Name</Label>
+          <Input
+            id="name"
+            className="text-xl"
+            value={user?.data?.name}
+            disabled
+          />
+          <br />
+
+          <Label htmlFor="email">&nbsp;Email</Label>
+          <Input
+            id="email"
+            className="text-xl"
+            value={user?.data?.email}
+            disabled
+          />
+        </div>
+        {user?.data && (
+          <Button className="w-1/4 cursor-pointer" onClick={logout}>
+            Logout
+          </Button>
+        )}
       </div>
     </div>
   );
