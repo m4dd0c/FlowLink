@@ -12,9 +12,9 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { BsCopy } from "react-icons/bs";
 import { useEffect, useState } from "react";
-import { IoTicket } from "react-icons/io5";
+import { IoCheckmarkCircle } from "react-icons/io5";
 
-const NodeDetailsCard = ({ node }: { node: any }) => {
+const NodeDetailsCard = ({ node }: { node: Record<string, string> }) => {
   const url = `${WEBHOOK_BE_URL}/hooks/catch/${node?.userId}/${node?.zapId}`;
 
   const [icon, setIcon] = useState(<BsCopy />);
@@ -27,7 +27,7 @@ const NodeDetailsCard = ({ node }: { node: any }) => {
   };
 
   useEffect(() => {
-    if (copied) setIcon(<IoTicket className="text-green-500" />);
+    if (copied) setIcon(<IoCheckmarkCircle className="text-green-500" />);
     else setIcon(<BsCopy />);
   }, [copied]);
 
