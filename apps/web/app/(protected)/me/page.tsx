@@ -26,7 +26,7 @@ const Page = () => {
   if (isFetching) return <div>Loading...</div>;
   return (
     <div>
-      {name}
+      Hello, I'm {name} <br />
       <br />
       {data?.data && <Button onClick={logout}>Logout</Button>}
     </div>
