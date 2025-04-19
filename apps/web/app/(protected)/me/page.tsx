@@ -25,10 +25,12 @@ const Page = () => {
 
   if (isFetching) return <div>Loading...</div>;
   return (
-    <div className="container h-screen">
-      Hello, I&apos;m {name} <br />
-      <br />
-      {data?.data && <Button onClick={logout}>Logout</Button>}
+    <div className="h-screen">
+      <div className="container mx-auto">
+        Hello, I&apos;m {name} <br />
+        <br />
+        {data?.data && <Button onClick={logout}>Logout</Button>}
+      </div>
     </div>
   );
 };
